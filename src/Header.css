@@ -1,0 +1,42 @@
+.Header {
+    height: 15vh;
+    background-color: #3B71CA;  
+    display: flex;    
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    padding: .5rem 1.5rem 0.2rem 0.8rem;
+    gap: 2rem;
+    margin: 0;
+    width: auto;    
+}
+
+
+.LogoHeader {
+    height: 3rem;
+    cursor: pointer;
+}
+
+.UserPhotoHeader{
+    height: 2.5rem;
+    cursor: pointer;
+}
+
+.LogoHeaderCointainer{
+    flex-grow: 1;
+}
+
+.PlayButtonHeader{
+    padding: 8px 27px;
+    cursor: pointer;
+    border: none;
+    color: white;
+    background-color: var(--yellow);
+    border-radius: 0.6rem;
+    font-family: var(--Fonte);
+}
+
+.PlayButtonHeader:hover{
+    background-color: var(--yellowBrither);
+}
+
