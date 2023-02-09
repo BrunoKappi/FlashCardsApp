@@ -1,12 +1,26 @@
 import React from 'react'
 import Flashcard from './Flashcard';
+import './FlashcardList.css'
 
 export default function FlashcardList({ flashcards }) {
   return (
-    <div className="card-grid">
-      {flashcards.map(flashcard => {
-        return <Flashcard flashcard={flashcard} key={flashcard.id} />
-      })}
-    </div>
+    <>
+      {flashcards.length == 0 &&
+
+        <div className='NoQuestionDescription'>
+
+          <p>Choose the desired category and the number of questions you want</p>
+
+          <p> Each time you generate the questions, they will be different</p>
+
+        </div>}
+      <div className="card-grid">
+
+
+        {flashcards.map(flashcard => { 
+          return <Flashcard flashcard={flashcard} key={flashcard.id} />
+        })}
+      </div>
+    </>
   )
 }
