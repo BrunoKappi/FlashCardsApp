@@ -13,6 +13,8 @@ export default function FlashcardList({ flashcards }) {
 
           <p> Each time you generate the questions, they will be different</p>
 
+          <p> The system is limited to 50 questions at a time</p>
+
         </div>}
       <div className="card-grid"> 
 
