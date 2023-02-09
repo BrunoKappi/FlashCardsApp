@@ -1,20 +1,19 @@
 body {
-  background-color: #C8D0D2;
+  background-color: #759ddd;
   margin: 0;
 }
 
 .container {
-  max-width: 900px;
-  margin: 1rem 2rem;
+  margin: 1rem 1rem;  
 }
 
-.header {
+.AutomaticHeader {
   display: flex;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: flex-end;
   flex-wrap: wrap;
-  background-color: white;
-  padding: 0 1.5rem;
+  background-color: rgb(237, 235, 235);
+  padding: 0 .6rem;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
 }
 
@@ -22,25 +21,52 @@ body {
   display: flex;
   flex-direction: column;
   margin: .5rem;
+  font-family: var(--Fonte);
 }
 
-.form-group > label {
+.form-group>label {
   color: #777;
   font-size: .75rem;
   margin-bottom: .25rem;
+  font-family: var(--Fonte);
 }
 
+.form-group>select {
+  padding: 6px 7px;
+  border-radius: .3rem;
+  outline: none;
+  border: 1px solid #777;
+  font-family: var(--Fonte);
+  margin: 0;
+  background-color: transparent;
+
+}
+
+.form-group>input {
+  padding: 6px 7px;
+  border-radius: .3rem;
+  outline: none;
+  border: 1px solid #777;
+  font-family: var(--Fonte);
+  margin: 0;
+  background-color: transparent;
+}
+
+
+
+
 .btn {
-  background-color: hsl(200, 100%, 50%);
-  color: white;
-  padding: .5em 1em;
-  border-radius: .3em;
-  border: none;
+  padding: 8px 27px;
   cursor: pointer;
+  border: none;
+  color: white;
+  background-color: var(--yellow);
+  border-radius: 0.6rem;
+  font-family: var(--Fonte);
 }
 
 .btn:hover {
-  background-color: hsl(200, 100%, 40%);
+  background-color: var(--yellowBrither);
 }
 
 .card-grid {
@@ -50,3 +76,20 @@ body {
   gap: 1rem;
 }
 
+
+
+
+@media (max-width: 650px) {
+
+  .AutomaticHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    
+    padding: 0 .3rem;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
+  }
+
+
+}

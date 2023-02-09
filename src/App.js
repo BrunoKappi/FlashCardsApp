@@ -7,16 +7,19 @@ import "./App.css"
 
 function App() {
 
-  const [Choice, setChoice] = useState('Login');
+  const [Choice, setChoice] = useState('Automatic');
+  //Colocar como Login para Login
 
   return (
     <>
       <Header />
 
-      <div>
-        <button onClick={() => setChoice('Manual')}>Personalizados</button>
-        <button onClick={() => setChoice('Automatic')}>Automaticos</button>
-      </div>
+      {Choice === 'Login' &&
+        <div>
+          <button onClick={() => setChoice('Manual')}>Personalizados</button>
+          <button onClick={() => setChoice('Automatic')}>Automaticos</button>
+        </div>
+      }
 
       <div>
         {Choice === 'Manual' && <Manual />}

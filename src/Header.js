@@ -9,10 +9,7 @@ export default function Header() {
         <div className='Header'>
             <div className='LogoHeaderCointainer'>
                 <img className='LogoHeader' src={Logo} alt="" />
-            </div>
-            <div className='ButtonsContainer'>
-                <button className='PlayButtonHeader'>Play</button>
-            </div>
+            </div>           
             <div className='UserPhotoHeaderCointainer'>
                 <img className='UserPhotoHeader' src={User} alt="" />
             </div>

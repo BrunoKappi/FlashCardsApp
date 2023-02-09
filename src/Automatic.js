@@ -57,7 +57,7 @@ function Automatic() {
 
   return (
     <>
-      <form className="header" onSubmit={handleSubmit}>
+      <form className="AutomaticHeader" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="category">Category</label>
           <select id="category" ref={categoryEl}>
