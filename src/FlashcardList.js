@@ -14,7 +14,7 @@ export default function FlashcardList({ flashcards }) {
           <p> Each time you generate the questions, they will be different</p>
 
         </div>}
-      <div className="card-grid">
+      <div className="card-grid"> 
 
 
         {flashcards.map(flashcard => { 
