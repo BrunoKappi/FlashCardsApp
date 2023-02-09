@@ -5,7 +5,7 @@ import './FlashcardList.css'
 export default function FlashcardList({ flashcards }) {
   return (
     <>
-      {flashcards.length == 0 &&
+      {flashcards.length === 0 &&
 
         <div className='NoQuestionDescription'>
 
