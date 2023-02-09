@@ -22,6 +22,7 @@ body {
   flex-direction: column;
   margin: .5rem;
   font-family: var(--Fonte);
+  
 }
 
 .form-group>label {
@@ -32,24 +33,27 @@ body {
 }
 
 .form-group>select {
-  padding: 6px 7px;
+  padding: 3px 3px;
   border-radius: .3rem;
   outline: none;
   border: 1px solid #777;
   font-family: var(--Fonte);
   margin: 0;
   background-color: transparent;
+  font-size: .75rem; 
+  
 
 }
 
 .form-group>input {
-  padding: 6px 7px;
+  padding: 3px 3px;
   border-radius: .3rem;
   outline: none;
   border: 1px solid #777;
   font-family: var(--Fonte);
   margin: 0;
   background-color: transparent;
+  font-size: .75rem; 
 }
 
 
