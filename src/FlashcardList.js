@@ -1,6 +1,9 @@
 import React from 'react'
 import Flashcard from './Flashcard';
 import './FlashcardList.css'
+import { BiCategoryAlt } from 'react-icons/bi';
+import { FaSearch } from 'react-icons/fa';
+import { FaInfoCircle } from 'react-icons/fa';
 
 export default function FlashcardList({ flashcards }) {
   return (
@@ -9,20 +12,20 @@ export default function FlashcardList({ flashcards }) {
 
         <div className='NoQuestionDescription'>
 
-          <p>Choose the desired category and the number of questions you want</p>
+          <p> <BiCategoryAlt /> Choose the desired category and the number of questions you want</p>
 
-          <p> Each time you generate the questions, they will be different</p>
+          <p> <FaSearch /> Each time you generate the questions, they will be different</p>
 
-          <p> The system is limited to 50 questions at a time</p> 
+          <p> <FaInfoCircle /> The System is limited to 50 questions at a time</p>
 
         </div>}
-      <div className="card-grid"> 
+      <div className="card-grid">
 
 
-        {flashcards.map(flashcard => { 
+        {flashcards.map(flashcard => {
           return <Flashcard flashcard={flashcard} key={flashcard.id} />
         })}
       </div>
     </>
   )
-}
+} 

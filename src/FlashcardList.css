@@ -2,7 +2,14 @@
     color: white;
     font-family: var(--Fonte);
     font-weight: 500;
-    font-size: 1.2rem;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.NoQuestionDescription>p>svg {
+    margin-right: .4rem;
 }
 
 
@@ -11,7 +18,12 @@
         color: white;
         font-family: var(--Fonte);
         font-weight: 400;
-        font-size: 1rem;
+        font-size: .7rem;
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
     }
+
+ 
 
 }
