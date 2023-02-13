@@ -1,6 +1,10 @@
+/*eslint-disable-next-line*/
+
 body {
-  background-color: #3B71CA;
+  background: rgb(34, 193, 195);
+  background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(59, 113, 202, 1) 100%, rgba(59, 113, 202, 1) 100%, rgba(59, 113, 202, 1) 100%);
   margin: 0;
+  height: 100vh;
 
 }
 
@@ -11,7 +15,6 @@ body {
 .container {
   margin: 1rem 1rem;
 }
-
 
 .AutomaticHeaderContainer {
   display: flex;
@@ -81,6 +84,8 @@ body {
   -webkit-appearance: none;
   /* Safari and Chrome */
   appearance: none;
+
+  flex-grow: 1;
 }
 
 
@@ -100,6 +105,9 @@ body {
   -webkit-appearance: none;
   /* Safari and Chrome */
   appearance: none;
+
+  flex-grow: 1;
+
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -141,6 +149,17 @@ input[type=number] {
 }
 
 
+.BackButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.BackButton>svg {
+  color: white;
+  font-size: 1.5rem;
+}
+
 
 
 @media (max-width: 650px) {
@@ -148,6 +167,11 @@ input[type=number] {
   .AutomaticHeaderContainer {
     padding: 0;
     margin: 0;
+  }
+
+  .BackButton {
+    display: none;
+
   }
 
   .AutomaticHeader {

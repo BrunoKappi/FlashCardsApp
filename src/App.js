@@ -1,30 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { Routes, Route } from "react-router-dom";
 import Automatic from './Automatic';
-import Header from './Header';
+import store from './store/store';
 import Manual from './Manual';
 import "./App.css"
-
+import { BrowserRouter as Router } from "react-router-dom";
+import Layout from './Layout';
+import { Provider } from 'react-redux'
+import { setFunction } from './store/actions/UserActions';
 
 function App() {
 
-  const [Choice, setChoice] = useState('Automatic');
-  //Colocar como Login para Login
+  useEffect(() => {
+    const CurrentFunction = store.getState().User.Function
+    console.log(store.getState().User.Function)
+    if (window.location.pathname.includes('Trivia') && CurrentFunction === 'No')
+      store.dispatch(setFunction('Trivia'))
+    if (window.location.pathname.includes('FlashCards') && CurrentFunction === 'No')
+      store.dispatch(setFunction('FlashCards'))
+  }, []);
+
 
   return (
     <>
-      <Header />
-
-      {Choice === 'Login' &&
-        <div>
-          <button onClick={() => setChoice('Manual')}>Personalizados</button>
-          <button onClick={() => setChoice('Automatic')}>Automaticos</button>
-        </div>
-      }
-
-      <div>
-        {Choice === 'Manual' && <Manual />}
-        {Choice === 'Automatic' && <Automatic />}
-      </div>
+      <Router>
+        <Provider store={store}>
+          <Routes>
+            <Route path="/" element={<Layout />} >
+              <Route path="/Trivia" element={<Automatic />} />
+              <Route path="/FlashCards" element={<Manual />} />
+            </Route>
+          </Routes>
+        </Provider>
+      </Router>
 
     </>
   );

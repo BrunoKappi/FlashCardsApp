@@ -2,7 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import FlashcardList from './FlashcardList';
 import './Automatic.css'
 import axios from 'axios'
-
+import { MdArrowBackIos } from 'react-icons/md';
+import { Link } from 'react-router-dom'
+import { setFunction } from './store/actions/UserActions';
+import store from './store/store';
 
 
 function Automatic() {
@@ -14,7 +17,7 @@ function Automatic() {
 
   useEffect(() => {
     axios
-      .get('https://opentdb.com/api_category.php')
+      .get('https://opentdb.com/api_category.php') 
       .then(res => {
         setCategories(res.data.trivia_categories)
       })
@@ -57,13 +60,30 @@ function Automatic() {
       })
   }
 
+  const showDropdown = (element) => {
+    var event;
+    event = document.createEvent('MouseEvents');
+    event.initMouseEvent('mousedown', true, true, window);
+    element.dispatchEvent(event);
+  };
+
+  const OpenSelect = () => {
+    var dropdown = document.getElementById("category")
+    showDropdown(dropdown)
+  }
+
+  const SetFuction = (func) => {
+    store.dispatch(setFunction(func))
+}
+
   return (
     <>
       <div className='AutomaticHeaderContainer'>
         <form className="AutomaticHeader" onSubmit={handleSubmit}>
-          <div className="form-group">
+        <Link className='BackButton' onClick={e => SetFuction('No')} to="/"><MdArrowBackIos /></Link>
+          <div className="form-group" onClick={OpenSelect}>
             <label htmlFor="category">Category</label>
-            <select id="category" ref={categoryEl}>
+            <select id="category" ref={categoryEl} >
               {categories.map(category => {
                 return <option value={category.id} key={category.id}>{category.name}</option>
               })}
@@ -79,7 +99,7 @@ function Automatic() {
         </form>
 
 
-       
+
 
 
 

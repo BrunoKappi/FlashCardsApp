@@ -1,0 +1,32 @@
+.BottomBar {
+    background-color: white;
+    width: 100%;
+    height: 7vh;
+    position: fixed;
+    bottom: 0 !important;
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: .2rem;
+    display: none;
+}
+
+.BottomBar>a>svg {
+    color: rgba(34, 193, 195, 1);
+    font-size: 1.5rem;
+}
+
+.ActiveBottomBarItem {
+    color: var(--blue) !important;
+}
+
+
+
+@media (max-width: 650px) {
+    .BottomBar{
+        display: flex;
+    }
+}
