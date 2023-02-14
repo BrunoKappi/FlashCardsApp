@@ -12,6 +12,9 @@
     align-items: center;
     padding-top: .2rem;
     display: none;
+    -webkit-box-shadow: -1px -1px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px -1px 5px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -1px -1px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
 .BottomBar>a>svg {
@@ -26,7 +29,7 @@
 
 
 @media (max-width: 650px) {
-    .BottomBar{
+    .BottomBar {
         display: flex;
     }
 }

@@ -1,5 +1,18 @@
 
-const CardsDefault = []
+const CardsDefault = [
+    {
+        Name: 'Programação',
+        Cards: []
+    },
+    {
+        Name: 'ReactJs',
+        Cards: []
+    },
+    {
+        Name: 'História',
+        Cards: []
+    },
+]
 
 
 const Cards = (state = CardsDefault, action) => {

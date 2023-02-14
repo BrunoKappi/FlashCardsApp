@@ -1,8 +1,13 @@
 /*eslint-disable-next-line*/
 
+html{
+  
+}
+
 body {
   background: rgb(34, 193, 195);
   background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(59, 113, 202, 1) 100%, rgba(59, 113, 202, 1) 100%, rgba(59, 113, 202, 1) 100%);
+  background-attachment: fixed; /*edit*/
   margin: 0;
   height: 100vh;
 
