@@ -1,9 +1,11 @@
 
 const UserDefault = {
-    Name: '', 
+    Name: '',
     Email: '',
-    Function: 'No'
-
+    Function: 'No',
+    CurrentTab: 'Home',
+    CurrentCategory: 'No',
+    CurrentCategoryId: '',
 }
 
 const User = (state = UserDefault, action) => {
@@ -18,6 +20,12 @@ const User = (state = UserDefault, action) => {
             return {
                 ...state,
                 Function: action.Function
+            }
+        case 'SET_CURRENT_CATEGORY':
+            return {
+                ...state,
+                CurrentCategory: action.CurrentCategory.Name,
+                CurrentCategoryId: action.CurrentCategory.Id
             }
         case 'RESET_FUNCTION':
             return {

@@ -94,7 +94,7 @@ function Automatic() {
             <input type="number" id="amount" min="1" max="50" step="1" defaultValue={10} ref={amountEl} />
           </div>
           <div className="form-group" id='form-groupBtn'>
-            <button className="btn">Generate</button>
+            <button className="Btn">Generate</button>
           </div>
         </form>
 

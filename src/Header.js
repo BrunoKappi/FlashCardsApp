@@ -5,15 +5,16 @@ import User from './images/User.png'
 import store from './store/store'
 import { resetFunction } from './store/actions/UserActions'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-export default function Header() {
+const Header = (props) => {
 
     const reset = () => {
         store.dispatch(resetFunction())
     }
 
     return (
-        <div className='Header'>
+        <div className={props.User.CurrentCategory === 'No' ? 'Header' : 'Header HeaderNoShow'}>
             <div className='LogoHeaderCointainer'>
                 <Link to={'/'}>
                     <img onClick={reset} className='LogoHeader' src={Logo} alt="" />
@@ -25,3 +26,14 @@ export default function Header() {
         </div>
     )
 }
+
+
+
+
+const ConnectedHeader = connect((state) => {
+    return {
+        User: state.User
+    }
+})(Header)
+
+export default ConnectedHeader

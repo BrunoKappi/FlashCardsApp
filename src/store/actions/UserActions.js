@@ -21,8 +21,15 @@ export const resetFunction = () => {
 
 export const setUser = (user) => {
     return ({
-        type: 'SET_User',
+        type: 'SET_USER',
         user
+    })
+}
+
+export const setCurrentCategory = (CurrentCategory) => {
+    return ({
+        type: 'SET_CURRENT_CATEGORY',
+        CurrentCategory
     })
 }
 

@@ -1,6 +1,6 @@
 .Header {
     height: 15vh;
-   
+
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -41,14 +41,16 @@
 }
 
 
-
+.HeaderNoShow {
+    display: none;
+}
 
 
 
 
 @media (max-width: 900px) {
 
- 
+
 
     .LogoHeader {
         height: 2rem;

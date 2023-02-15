@@ -1,5 +1,4 @@
-.FlasshCardsContainer {
-    height: 100vh;
+.FlashCardsContainer {
     padding: 1rem 2rem;
 }
 
@@ -7,7 +6,8 @@
 
 .Category {
     background-color: white;
-    padding: 1rem;
+    
+    padding-right: .2rem;    
     border-radius: 0;
     border-top-right-radius: .4rem;
     border-bottom-right-radius: .4rem;
@@ -17,7 +17,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    gap: .5rem;
+    gap: .6rem;
     flex-grow: 1;
 }
 
@@ -32,7 +32,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: .4rem;
+    margin-bottom: .6rem;
 
 }
 
@@ -40,9 +40,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     gap: .5rem;
     margin-right: 1rem;
+
 }
 
 .CategoryIcon {
@@ -68,8 +69,12 @@
 
 
 .CategoryIcons>svg {
-    color: rgb(185, 183, 183);;
+    color: rgb(185, 183, 183);
+    font-size: 1.2rem;
+
 }
+
+
 
 .CategoryName {
     display: flex;
@@ -77,15 +82,24 @@
     align-items: center;
     justify-content: flex-start;
     flex-grow: 1;
-    color: black;
+    color: rgb(56, 56, 56);
+    width: 30rem;
+    padding: 1.6rem;
 }
 
+.CategoryName>p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
 
 .ButtonsCategories {
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 }
 
 
@@ -112,7 +126,156 @@
 
 
 
+
+
+
+
+
+
+/*  MODAL ADIÇÃO DE CATEGORIA  */
+
+/* blurred background modal for bootstrap v4 */
+.modal-open> :not(.modal) {
+    -webkit-filter: blur(50px);
+    -moz-filter: blur(50px);
+    -o-filter: blur(50px);
+    -ms-filter: blur(50px);
+    filter: blur(50px);
+}
+
+.AddCategoryModalBody {
+    padding: 1rem;
+}
+
+.AddCategoryModalTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--Fonte);
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 600;
+}
+
+.AddCategoryFormGroup {
+    margin-bottom: 1rem;
+}
+
+
+
+.AddCategoryFormGroup>input::placeholder {
+
+    color: rgb(84, 83, 83);
+}
+
+
+
+.AddCategoryFormGroup>input {
+    border-radius: .5rem;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    font-family: var(--Fonte);
+    outline: none;
+
+    color: rgb(84, 83, 83);
+}
+
+.AddCategoryFormGroup>select {
+    border-radius: .5rem;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    font-family: var(--Fonte);
+    outline: none;
+    color: rgb(84, 83, 83);
+}
+
+.modal-body {
+    background-color: var(--yellow);
+}
+
+.modal-content {
+    overflow: hidden;
+}
+
+.AddCategoryButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.AddCategoryButtons>button {
+    cursor: pointer;
+    border: none;
+    background-color: var(--blue);
+    border-radius: 2rem;
+    padding: .7rem 2rem;
+    text-decoration: none;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+}
+
+.AddCategoryButtons>button:hover {
+    background-color: var(--blueBrither);
+}
+
+
+/*  MODAL ADIÇÃO DE CATEGORIA  */
+
+
+
+
+.NoCategories {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.NoCategories>p {
+    font-family: var(--Fonte);
+    color: white;
+    font-size: 1.5rem;
+}
+
+
+
 @media (max-width: 650px) {
+
+    .CategoryIcons>svg {
+        font-size: 1rem;
+    }
+
+    .NoCategories>p {
+        font-family: var(--Fonte);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .AddCategoryModalBody {
+        padding: .3rem;
+        padding-bottom: 1rem !important;
+        padding-top: 3rem !important;
+    }
+
+    .modal-body {
+        padding: .5rem !important;
+    }
+
     .Category {
         font-size: .8rem;
     }
@@ -139,11 +302,15 @@
         font-size: .8rem;
     }
 
-    .FlasshCardsContainer {
+    .FlashCardsContainer {
         height: 100vh;
         padding: .6rem .7rem;
     }
-    
+
+    .CategoryName {
+
+        width: 10rem;
+    }
 
 
 }

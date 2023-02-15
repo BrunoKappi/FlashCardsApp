@@ -1,4 +1,4 @@
-.card {
+.Card {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -12,31 +12,31 @@
   transform: perspective(1000px) rotateY(var(--rotate-y, 0)) translateY(var(--translate-y, 0));
 }
 
-.card:hover {
+.Card:hover {
   --translate-y: -2px;
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, .5);
 }
 
-.card.flip {
+.Card.Flip {
   --rotate-y: 180deg;
 }
 
-.card .front {
+.Card .Front {
   left: 0;
 }
 
-.card .front,
-.card .back {
+.Card .Front,
+.Card .Back {
   position: absolute;
-  padding: .6rem;
-  padding-bottom: 1rem;
+  padding: .6rem !important;
+  padding-bottom: 1rem !important;
   backface-visibility: hidden;
   color: white;
   font-family: var(--Fonte);
   font-size: .8rem;
 }
 
-.card .back {
+.Card .Back {
   transform: rotateY(180deg);
 }
 

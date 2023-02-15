@@ -1,13 +1,12 @@
 /*eslint-disable-next-line*/
 
-html{
-  
-}
+html {}
 
 body {
   background: rgb(34, 193, 195);
   background: linear-gradient(0deg, rgba(34, 193, 195, 1) 0%, rgba(59, 113, 202, 1) 100%, rgba(59, 113, 202, 1) 100%, rgba(59, 113, 202, 1) 100%);
-  background-attachment: fixed; /*edit*/
+  background-attachment: fixed;
+  /*edit*/
   margin: 0;
   height: 100vh;
 
@@ -127,12 +126,12 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-.btn {
+.Btn {
   cursor: pointer;
   border: none;
   color: white;
-  background-color: var(--yellow);
-  font-family: var(--Fonte);
+  background-color: var(--yellow) !important;
+  font-family: var(--Fonte) !important;
   width: 100%;
   height: 100%;
   border-radius: 2rem;
@@ -142,11 +141,11 @@ input[type=number] {
   padding-bottom: .5rem;
 }
 
-.btn:hover {
+.Btn:hover {
   background-color: var(--yellowBrither);
 }
 
-.card-grid {
+.Card-grid {
   display: grid;
   align-items: center;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));

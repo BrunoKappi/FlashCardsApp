@@ -8,12 +8,13 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Layout from './Layout';
 import { Provider } from 'react-redux'
 import { setFunction } from './store/actions/UserActions';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
 
   useEffect(() => {
     const CurrentFunction = store.getState().User.Function
-    console.log(store.getState().User.Function)
+
     if (window.location.pathname.includes('Trivia') && CurrentFunction === 'No')
       store.dispatch(setFunction('Trivia'))
     if (window.location.pathname.includes('FlashCards') && CurrentFunction === 'No')
@@ -28,7 +29,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Layout />} >
               <Route path="/Trivia" element={<Automatic />} />
-              <Route path="/FlashCards" element={<Manual />} />
+              <Route path="/FlashCards/" element={<Manual />} />
+              <Route path="/FlashCards/:ID" element={<Manual />} />
             </Route>
           </Routes>
         </Provider>

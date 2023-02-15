@@ -13,9 +13,23 @@ export const setCards = (Cards) => {
     })
 }
 
-export const addCategory = (Category) => {    
+export const addCategory = (Category) => {
     return ({
         type: 'ADD_CATEGORY',
+        Category
+    })
+}
+
+export const editCategory = (Category) => {
+    return ({
+        type: 'EDIT_CATEGORY',
+        Category
+    })
+}
+
+export const deleteCategory = (Category) => {
+    return ({
+        type: 'DELETE_CATEGORY',
         Category
     })
 }

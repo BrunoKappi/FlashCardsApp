@@ -19,7 +19,7 @@ export default function FlashcardList({ flashcards }) {
           <p> <FaInfoCircle /> The System is limited to 50 questions at a time</p>
 
         </div>}
-      <div className="card-grid">
+      <div className="Card-grid">
 
 
         {flashcards.map(flashcard => {
