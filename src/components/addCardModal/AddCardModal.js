@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
 import { uuid } from 'uuidv4';
 import { editCategory } from '../../store/actions/CardsActions';
+import { MdDelete } from 'react-icons/md';
 import store from '../../store/store';
 
 
@@ -45,10 +46,15 @@ const AddCardModal = (props) => {
         setOptionsSet([...NewOptionsSet])
     }
 
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
 
-    const handleAddOption = () => {
+    const handleAddOption = (e) => {
+        console.log("Teste")
+        e.preventDefault()
         if (NewOption) {
-            var newOptionObject = { Id: (OptionsSet.length + 1), Option: NewOption, IsAnswer: false }
+            var newOptionObject = { Id: (OptionsSet.length + 1), Option: capitalizeFirstLetter(NewOption), IsAnswer: false }
             const NewOptionsSet = [...OptionsSet, newOptionObject]
             setOptionsSet([...NewOptionsSet])
             setNewOption('')
@@ -105,7 +111,7 @@ const AddCardModal = (props) => {
             NewCategory.Cards = [...NewCategory.Cards, NewCard]
             store.dispatch(editCategory(NewCategory))
             console.log(NewCategory)
-            setCurrentCategory({...NewCategory})
+            setCurrentCategory({ ...NewCategory })
             handleClose()
             handleClearAll()
         }
@@ -122,7 +128,7 @@ const AddCardModal = (props) => {
             NewCategory.Cards = [...NewCategory.Cards, NewCard]
             store.dispatch(editCategory(NewCategory))
             console.log(NewCategory)
-            setCurrentCategory({...NewCategory})
+            setCurrentCategory({ ...NewCategory })
             handleClose()
             handleClearAll()
         }
@@ -132,55 +138,72 @@ const AddCardModal = (props) => {
     }
 
 
+
     return (
         <div className='AddCardModal'>
-            <Modal size="md" centered={true} show={props.ShowAddCardModal} >
-                <Modal.Body >
-                    <form onSubmit={handleSubmit}>
-                        <div>
-                            <input type="radio" id="TextOption" name="Text" value="Text" checked={CardType === 'Text'} onChange={handleChangeTypeOption} />
-                            <label for="TextOption">Text</label>
+            <Modal size="md" centered={true} show={props.ShowAddCardModal} fullscreen={'md-down'}>
+                <Modal.Body className='AddModalCardBodyBootstrap' >
+                    <div className='AddModalCardBody'>
+                        <div className='AddModalCardTitle'>
+                            <p>What type of card will it be?</p>
                         </div>
-                        <div>
-                            <input type="radio" id="MultipleChoiceOption" name="MultipleChoice" value="MultipleChoice" checked={CardType === 'MultipleChoice'} onChange={handleChangeTypeOption} />
-                            <label for="MultipleChoiceOption">Multiple Choice</label>
+                        <div className='AddModalCardRadios'>
+                            <div className='AddModalCardRadio'>
+                                <input type="radio" id="TextOption" name="Text" value="Text" checked={CardType === 'Text'} onChange={handleChangeTypeOption} />
+                                <label for="TextOption">Text</label>
+                            </div>
+                            <div className='AddModalCardRadio'>
+                                <input type="radio" id="MultipleChoiceOption" name="MultipleChoice" value="MultipleChoice" checked={CardType === 'MultipleChoice'} onChange={handleChangeTypeOption} />
+                                <label for="MultipleChoiceOption">Multiple Choice</label>
+                            </div>
                         </div>
 
 
                         {CardType === 'Text' &&
-                            <div>
-                                <textarea placeholder='Pergunta' value={Question} onChange={e => setQuestion(e.target.value)} />
-                                <textarea placeholder='Resposta' value={Answer} onChange={e => setAnswer(e.target.value)} />
-                            </div>
+                            <form className='AddModalCardTextChoiceContainer' onSubmit={handleAddOption}>
+                                <textarea placeholder='Question' value={Question} onChange={e => setQuestion(e.target.value)} />
+                                <textarea placeholder='Answer' value={Answer} onChange={e => setAnswer(e.target.value)} />
+                            </form>
                         }
 
                         {CardType === 'MultipleChoice' &&
-                            <div>
-                                <textarea placeholder='Pergunta' value={Question} onChange={e => setQuestion(e.target.value)} />
-                                {OptionsSet.map((OP, index) => {
-                                    return <div key={uuid()}>
-                                        <button onClick={e => handleDeleteOption(OP.Id)}>Delete</button>
-                                        <input type="text" value={OP.Option} />
-                                        <input type="radio" id={OP.Option} name="Corret" value={OP.Id} checked={OP.IsAnswer === true} onChange={handleChangeCorrectOption} />
-                                        <label for={OP.Option}>Corret</label>
+                            <div className='AddModalCardMultipleChoiceContainer'>
+                                <textarea placeholder='Question' value={Question} onChange={e => setQuestion(e.target.value)} />
+                                {OptionsSet.length > 0 && <div className='AddModalCardOptionsTitle'>
+                                    Options
+                                </div>}
+                                {OptionsSet.map((OP, Index) => {
+                                    return <div key={uuid()} className='AddModalCardOption'>
+                                        <button onClick={e => handleDeleteOption(OP.Id)}>
+                                            <MdDelete />
+                                        </button>
+                                        <div className='AddModalCardOptionDot'></div>
+                                        <div className='AddModalCardOptionName'>
+                                            <p>{OP.Option}</p>
+                                        </div>
+                                        <div className='AddModalCardOptionCorret'>
+                                            <input className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} type="checkbox" id={OP.Option} name="Corret" value={OP.Id} checked={OP.IsAnswer === true} onChange={handleChangeCorrectOption} />
+                                            <label className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} for={OP.Option}>Corret</label>
+                                        </div>
                                     </div>
                                 })}
+
                                 {OptionsSet.length <= 9 &&
-                                    < div >
-                                        <button onClick={handleAddOption}>Add Option</button>
+                                    <form className='AddModalCardAddOptionForm' onSubmit={handleAddOption}>
+                                        <button>Add Option</button>
                                         <input type="text" value={NewOption} onChange={e => setNewOption(e.target.value)} placeholder={`Option  ${OptionsSet.length + 1}`} />
-                                    </div>
+                                    </form>
                                 }
                             </div>
                         }
 
 
-                    </form>
-                    {ErrorMessage && <div>{ErrorMessage}</div>}
+                    </div>
+                    {ErrorMessage && <div className='AddModalCardErrorMessage'>{ErrorMessage}</div>}
 
-                    <div className='EditCategoryButtons'>
+                    <div className='AddModalCardButtons'>
                         <button onClick={handleClose}>Cancel</button>
-                        <button onClick={handleAddCard}>Add</button>
+                        <button onClick={handleAddCard}>Add Card</button>
                     </div>
                 </Modal.Body>
             </Modal>

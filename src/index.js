@@ -4,16 +4,19 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store/store';
 import { setCards } from './store/actions/CardsActions';
-import { setUser } from './store/actions/UserActions';
 
 
+if (localStorage.getItem('FlashCardsCategories')) {
+  if (JSON.parse(localStorage.getItem('FlashCardsCategories')).length > 0) {
+    const CardsFromLocalstorage = JSON.parse(localStorage.getItem('FlashCardsCategories'))
+    //console.log(CardsFromLocalstorage)
+    store.dispatch(setCards(CardsFromLocalstorage))
+  } else {
+    store.dispatch(setCards([]))
+  }
 
-if ( JSON.parse(localStorage.getItem('FlashCardsCategories')).length > 0) {
-  const CardsFromLocalstorage = JSON.parse(localStorage.getItem('FlashCardsCategories'))
-  //console.log(CardsFromLocalstorage)
-  //store.dispatch(setCards(CardsFromLocalstorage))
 } else {
-  //store.dispatch(setCards([]))
+  store.dispatch(setCards([]))
 }
 
 
