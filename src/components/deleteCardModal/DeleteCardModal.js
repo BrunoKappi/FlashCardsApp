@@ -1,38 +1,32 @@
 import React, { useState, useEffect } from 'react'
-import './DeleteModal.css'
+import './DeleteCardModal.css'
 import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
 import store from '../../store/store';
-import { deleteCategory } from '../../store/actions/CardsActions';
-import { setCurrentCategory as SetCurrentCategoryRedux } from '../../store/actions/UserActions';
+import { editCategory } from '../../store/actions/CardsActions';
 
-
-const DeleteModal = (props) => {
+const DeleteCardModal = (props) => {
 
     const [CurrentCategory, setCurrentCategory] = useState({});
 
     useEffect(() => {
         if (props.CategoryId)
             setCurrentCategory(props.Categories.find((Card) => Card.Id.trim() === props.CategoryId))
-    }, [props.CategoryId, props.Categories]);
+    }, [props.CategoryId,props.Categories]);
 
     function handleClose() {
         props.CloseDeleteModal()
     }
 
-    const handleDeleteCategory = (e) => {
+    const handleDeleteCard = (e) => {
         e.preventDefault()
     }
 
-    const DeleteCategory = (e) => {
-
-        store.dispatch(deleteCategory(CurrentCategory))
-
-        if (props.User.CurrentCategory === CurrentCategory.Name) {
-            //console.log(props.User.CurrentCategory, CurrentCategory.Name)
-            store.dispatch(SetCurrentCategoryRedux({ Name: 'No', Id: '' }))
-
-        }
+    const DeleteCard = (e) => {
+        var NewCategory = { ...CurrentCategory }
+        NewCategory.Cards = NewCategory.Cards.filter(C => C.Id !== props.Card.Id)       
+        store.dispatch(editCategory(NewCategory))
+        //console.log(NewCategory)
         handleClose()
     }
 
@@ -42,12 +36,12 @@ const DeleteModal = (props) => {
                 <Modal.Body >
                     <div className='AddCategoryModalBody'>
                         <div className='DeleteCategoryModalTitle'>
-                            <p>Are you sure you want to delete this category?</p>
+                            <p>Are you sure you want to delete this Card?</p>
                         </div>
-                        <form onSubmit={handleDeleteCategory}>
+                        <form onSubmit={handleDeleteCard}>
                             <div className='DeleteCategoryButtons'>
                                 <button onClick={handleClose}>Cancel</button>
-                                <button onClick={DeleteCategory}>Delete</button>
+                                <button onClick={DeleteCard}>Delete</button>
                             </div>
                         </form>
                     </div>
@@ -60,11 +54,11 @@ const DeleteModal = (props) => {
 
 
 
-const ConnectedDeleteModal = connect((state) => {
+const ConnectedDeleteCardModal = connect((state) => {
     return {
         User: state.User,
         Categories: state.Cards
     }
-})(DeleteModal)
+})(DeleteCardModal)
 
-export default ConnectedDeleteModal
+export default ConnectedDeleteCardModal

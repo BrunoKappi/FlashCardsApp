@@ -4,11 +4,34 @@ import { connect } from 'react-redux'
 import { MdModeEditOutline } from 'react-icons/md';
 import { MdDelete } from 'react-icons/md';
 import { uuid } from 'uuidv4';
+import EditCardModal from '../editCardModal/EditCardModal'
+import DeleteCardModal from '../deleteCardModal/DeleteCardModal'
 
-const FlipCard = ({ Card }) => {
+const FlipCard = (props) => {
 
     const [flip, setFlip] = useState(false)
     const [height, setHeight] = useState('initial')
+
+    const [showEditCardModal, setShowEditCardModal] = useState(false);    
+    const [showDeleteCardModal, setShowDeleteCardModal] = useState(false);  
+
+    function handleShowEditCardModal(Id) {
+        setShowEditCardModal(true);      
+    }
+
+    function handleCloseEditCardModal() {
+        setShowEditCardModal(false);
+    }
+
+    function handleShowDeleteCardModal(Id) {
+        setShowDeleteCardModal(true);
+        
+    }
+
+    function handleCloseDeleteCardModal() {
+        setShowDeleteCardModal(false);
+    }
+
 
     const FrontElement = useRef()
     const BackElement = useRef()
@@ -19,7 +42,7 @@ const FlipCard = ({ Card }) => {
         setHeight(Math.max(FrontHeight, BackHeight, 100))
     }
 
-    useEffect(setMaxHeight, [Card.Question, Card.Answer, Card.Options])
+    useEffect(setMaxHeight, [props.Card.Question, props.Card.Answer, props.Card.Options])
     useEffect(() => {
         window.addEventListener('resize', setMaxHeight)
         return () => window.removeEventListener('resize', setMaxHeight)
@@ -27,22 +50,26 @@ const FlipCard = ({ Card }) => {
 
     return (
         <div className='FlipCardContainer'>
+
+            <EditCardModal Card={props.Card} ShowEditCardModal={showEditCardModal} CloseEditCardModal={handleCloseEditCardModal} CategoryId={props.CategoryId} />
+            <DeleteCardModal Card={props.Card} ShowDelete={showDeleteCardModal} CloseDeleteModal={handleCloseDeleteCardModal} CategoryId={props.CategoryId} />
+
             <div className={`FlipCard  ${flip ? 'FlipCardFlip' : ''}`} onClick={() => setFlip(!flip)} style={{ height: height }}>
                 <div className='FlipCardFront' ref={FrontElement}>
-                    <div className='FlipCardQuestion'>{Card.Question}</div>
+                    <div className='FlipCardQuestion'>{props.Card.Question}</div>
                     <div className='FlipCardOptions'>
-                        {Card.Options.map(Option => {
+                        {props.Card.Options.map(Option => {
                             return <p key={uuid()}> <div key={uuid()} className='FlipCardOptionDot'></div>  {Option.Option}</p>
                         })}
                     </div>
                 </div>
-                <div className="FlipCardBack" ref={BackElement}>{Card.Answer.Option}</div>
+                <div className="FlipCardBack" ref={BackElement}>{props.Card.Answer.Option}</div>
             </div>
             <div className='FlipCardButtonsBottom'>
-                <button>
+                <button onClick={e => handleShowEditCardModal(props.User.CurrentCategoryId)}>
                     <MdModeEditOutline />
                 </button>
-                <button>
+                <button onClick={e => handleShowDeleteCardModal(props.User.CurrentCategoryId)}>
                     <MdDelete />
                 </button>
             </div>

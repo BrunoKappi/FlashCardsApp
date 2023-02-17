@@ -6,7 +6,7 @@ const store = createStore(
     combineReducers({
         User, Cards
     }),
-
+ 
     //A linha abaixo é para habilitar o Rexux Store Extension
     // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
@@ -14,7 +14,7 @@ const store = createStore(
 store.subscribe(() => {
     localStorage.setItem("FlashCardsCategories", JSON.stringify(store.getState().Cards))
     localStorage.setItem("FlashCardsUserInfo", JSON.stringify(store.getState().User))
-    //console.log("Changed", store.getState())    
+    console.log("User", store.getState().User)    
 })
 
 export default store

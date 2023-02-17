@@ -16,8 +16,7 @@ import DeleteModal from './components/deleteModal/DeleteModal'
 const Manual = (props) => {
 
 
-  const [NewCategoryName, setNewCategoryName] = useState('');
-  const [NewCategoryType, setNewCategoryType] = useState('');
+  const [NewCategoryName, setNewCategoryName] = useState(''); 
 
   const [show, setShow] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
@@ -75,19 +74,20 @@ const Manual = (props) => {
 
   const handleAddCategory = (e) => {
     e.preventDefault()
+    AddCategory()
   }
 
-  const AddCategory = (e) => {
-    e.preventDefault()
+  const AddCategory = () => {
+
     setShow(false)
     const Index = props.Cards.length + 2
     const newCategory = {
-      Index, 
+      Index,
       Id: uuid(),
       Name: NewCategoryName,
       Cards: []
     }
-    console.log(newCategory)
+    //console.log(newCategory)
     store.dispatch(addCategory(newCategory))
     setNewCategoryName('')
   }
@@ -113,11 +113,11 @@ const Manual = (props) => {
                   <div className='AddCategoryFormGroup'>
                     <input type="text" placeholder='Category name' value={NewCategoryName} onChange={e => setNewCategoryName(e.target.value)} />
                   </div>
-                  <div className='AddCategoryButtons'>
-                    <button onClick={handleClose}>Cancel</button>
-                    <button onClick={AddCategory}>Add</button>
-                  </div>
                 </form>
+                <div className='AddCategoryButtons'>
+                  <button onClick={handleClose}>Cancel</button>
+                  <button onClick={AddCategory}>Add</button>
+                </div>
               </div>
             </Modal.Body>
           </Modal>
@@ -131,7 +131,7 @@ const Manual = (props) => {
 
         {props.Cards.sort(compare).map((Category, index) => {
           return <div key={index} className='CategoryContainer'>
-            <div className='CateoryNumber' onClick={e => SetCurrentCategory(Category)}>{index+1}</div>
+            <div className='CateoryNumber' onClick={e => SetCurrentCategory(Category)}>{index + 1}</div>
             <div className='Category'>
               <div className='CategoryName' onClick={e => SetCurrentCategory(Category)}>
                 <p>{Category.Name}</p>

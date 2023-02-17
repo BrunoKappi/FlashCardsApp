@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './AddCardModal.css'
+import './EditCardModal.css'
 import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
 import { uuid } from 'uuidv4';
@@ -8,8 +8,7 @@ import { MdDelete } from 'react-icons/md';
 import store from '../../store/store';
 
 
-const AddCardModal = (props) => {
-
+const EditCardModal = (props) => {
 
     const [CardType, setCardType] = useState('Text');
     const [ErrorMessage, setErrorMessage] = useState('');
@@ -20,15 +19,28 @@ const AddCardModal = (props) => {
     const [NewOption, setNewOption] = useState('');
     const [CorrectIndex, setCorrectIndex] = useState(-1);
 
+
     useEffect(() => {
-        if (props.CategoryId)
+        if (props.Card) {
+            setCardType(props.Card.Type)
+            setQuestion(props.Card.Question)
+            setAnswer(props.Card.Answer.Option)
+            setOptionsSet([...props.Card.Options])
+        }
+    }, [props.Card]);
+
+
+    useEffect(() => {
+        if (props.CategoryId) {
             setCurrentCategory(props.Categories.find((Card) => Card.Id.trim() === props.CategoryId))
+            //console.log(props.Categories.find((Card) => Card.Id.trim() === props.CategoryId))
+        }
 
     }, [props.CategoryId, props.Cards,props.Categories]);
 
 
     function handleClose() {
-        props.CloseAddCardModal()
+        props.CloseEditCardModal()
     }
 
     const handleChangeTypeOption = (event) => {
@@ -51,7 +63,6 @@ const AddCardModal = (props) => {
     }
 
     const handleAddOption = (e) => {
-        //console.log("Teste")
         e.preventDefault()
         if (NewOption) {
             var newOptionObject = { Id: (OptionsSet.length + 1), Option: capitalizeFirstLetter(NewOption), IsAnswer: false }
@@ -70,16 +81,6 @@ const AddCardModal = (props) => {
     }
 
 
-    const handleClearAll = () => {
-        setAnswer('')
-        setQuestion('')
-        setErrorMessage('')
-        setOptionsSet([])
-        setCardType('Text')
-        setNewOption('')
-
-    }
-
     const handleAddCard = () => {
 
         if (OptionsSet.length === 0 && CardType === 'MultipleChoice') {
@@ -96,7 +97,7 @@ const AddCardModal = (props) => {
         }
         else if (CardType === 'MultipleChoice') {
             const NewCard = {
-                Id: uuid(),
+                Id: props.Card.Id,
                 Type: CardType,
                 Question: Question,
                 Answer: OptionsSet[CorrectIndex],
@@ -104,16 +105,15 @@ const AddCardModal = (props) => {
             }
 
             var NewCategory = { ...CurrentCategory }
-            NewCategory.Cards = [...NewCategory.Cards, NewCard]
+            NewCategory.Cards = NewCategory.Cards.filter(C => C.Id !== props.Card.Id)
+            NewCategory.Cards = [NewCard, ...NewCategory.Cards]
             store.dispatch(editCategory(NewCategory))
             //console.log(NewCategory)
-            setCurrentCategory({ ...NewCategory })
-            handleClose()
-            handleClearAll()
+
         }
         else if (CardType === 'Text') {
             const NewCard = {
-                Id: uuid(),
+                Id: props.Card.Id,
                 Type: CardType,
                 Question: Question,
                 Answer: { Id: 1, Option: Answer, IsAnswer: true },
@@ -121,12 +121,10 @@ const AddCardModal = (props) => {
             }
 
             var NewCategoryText = { ...CurrentCategory }
-            NewCategoryText.Cards = [...NewCategoryText.Cards, NewCard]
-            store.dispatch(editCategory(NewCategoryText))
+            NewCategoryText.Cards = NewCategoryText.Cards.filter(C => C.Id !== props.Card.Id)
+            NewCategoryText.Cards = [NewCard, ...NewCategoryText.Cards]
             //console.log(NewCategoryText)
-            setCurrentCategory({ ...NewCategoryText })
-            handleClose()
-            handleClearAll()
+            store.dispatch(editCategory(NewCategoryText))
         }
 
 
@@ -136,19 +134,19 @@ const AddCardModal = (props) => {
 
 
     return (
-        <div className='AddCardModal'>
-            <Modal size="md" centered={true} show={props.ShowAddCardModal} fullscreen={'md-down'}>
-                <Modal.Body className='AddModalCardBodyBootstrap' >
-                    <div className='AddModalCardBody'>
-                        <div className='AddModalCardTitle'>
+        <div className='EditCardModal'>
+            <Modal size="md" centered={true} show={props.ShowEditCardModal} fullscreen={'md-down'}>
+                <Modal.Body className='EditModalCardBodyBootstrap' >
+                    <div className='EditModalCardBody'>
+                        <div className='EditModalCardTitle'>
                             <p>What type of card will it be?</p>
                         </div>
-                        <div className='AddModalCardRadios'>
-                            <div className='AddModalCardRadio'>
+                        <div className='EditModalCardRadios'>
+                            <div className='EditModalCardRadio'>
                                 <input type="radio" id="TextOption" name="Text" value="Text" checked={CardType === 'Text'} onChange={handleChangeTypeOption} />
                                 <label for="TextOption">Text</label>
                             </div>
-                            <div className='AddModalCardRadio'>
+                            <div className='EditModalCardRadio'>
                                 <input type="radio" id="MultipleChoiceOption" name="MultipleChoice" value="MultipleChoice" checked={CardType === 'MultipleChoice'} onChange={handleChangeTypeOption} />
                                 <label for="MultipleChoiceOption">Multiple Choice</label>
                             </div>
@@ -156,36 +154,36 @@ const AddCardModal = (props) => {
 
 
                         {CardType === 'Text' &&
-                            <form className='AddModalCardTextChoiceContainer' onSubmit={handleAddOption}>
+                            <form className='EditModalCardTextChoiceContainer' onSubmit={handleAddOption}>
                                 <textarea placeholder='Question' value={Question} onChange={e => setQuestion(e.target.value)} />
                                 <textarea placeholder='Answer' value={Answer} onChange={e => setAnswer(e.target.value)} />
                             </form>
                         }
 
                         {CardType === 'MultipleChoice' &&
-                            <div className='AddModalCardMultipleChoiceContainer'>
+                            <div className='EditModalCardMultipleChoiceContainer'>
                                 <textarea placeholder='Question' value={Question} onChange={e => setQuestion(e.target.value)} />
-                                {OptionsSet.length > 0 && <div className='AddModalCardOptionsTitle'>
+                                {OptionsSet.length > 0 && <div className='EditModalCardOptionsTitle'>
                                     Options
                                 </div>}
                                 {OptionsSet.map((OP, Index) => {
-                                    return <div key={uuid()} className='AddModalCardOption'>
+                                    return <div key={uuid()} className='EditModalCardOption'>
                                         <button onClick={e => handleDeleteOption(OP.Id)}>
                                             <MdDelete />
                                         </button>
-                                        <div className='AddModalCardOptionDot'></div>
-                                        <div className='AddModalCardOptionName'>
+                                        <div className='EditModalCardOptionDot'></div>
+                                        <div className='EditModalCardOptionName'>
                                             <p>{OP.Option}</p>
                                         </div>
-                                        <div className='AddModalCardOptionCorret'>
-                                            <input className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} type="checkbox" id={OP.Option} name="Corret" value={OP.Id} checked={OP.IsAnswer === true} onChange={handleChangeCorrectOption} />
-                                            <label className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} for={OP.Option}>Corret</label>
+                                        <div className='EditModalCardOptionCorret'>
+                                            <input className={OP.IsAnswer === true ? 'EditModalCardCorrectOption' : ''} type="checkbox" id={OP.Option} name="Corret" value={OP.Id} checked={OP.IsAnswer === true} onChange={handleChangeCorrectOption} />
+                                            <label className={OP.IsAnswer === true ? 'EditModalCardCorrectOption' : ''} for={OP.Option}>Corret</label>
                                         </div>
                                     </div>
                                 })}
 
                                 {OptionsSet.length <= 9 &&
-                                    <form className='AddModalCardAddOptionForm' onSubmit={handleAddOption}>
+                                    <form className='EditModalCardAddOptionForm' onSubmit={handleAddOption}>
                                         <button>Add Option</button>
                                         <input type="text" value={NewOption} onChange={e => setNewOption(e.target.value)} placeholder={`Option  ${OptionsSet.length + 1}`} />
                                     </form>
@@ -195,11 +193,11 @@ const AddCardModal = (props) => {
 
 
                     </div>
-                    {ErrorMessage && <div className='AddModalCardErrorMessage'>{ErrorMessage}</div>}
+                    {ErrorMessage && <div className='EditModalCardErrorMessage'>{ErrorMessage}</div>}
 
-                    <div className='AddModalCardButtons'>
+                    <div className='EditModalCardButtons'>
                         <button onClick={handleClose}>Cancel</button>
-                        <button onClick={handleAddCard}>Add Card</button>
+                        <button onClick={handleAddCard}>Save</button>
                     </div>
                 </Modal.Body>
             </Modal>
@@ -210,11 +208,11 @@ const AddCardModal = (props) => {
 
 
 
-const ConnectedAddCardModal = connect((state) => {
+const ConnectedEditCardModal = connect((state) => {
     return {
         User: state.User,
         Categories: state.Cards
     }
-})(AddCardModal)
+})(EditCardModal)
 
-export default ConnectedAddCardModal
+export default ConnectedEditCardModal

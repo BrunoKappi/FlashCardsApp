@@ -12,6 +12,7 @@ import { setCurrentCategory } from '../../store/actions/UserActions';
 import EditModal from '../editModal/EditModal'
 import DeleteModal from '../deleteModal/DeleteModal'
 import AddCardModal from '../addCardModal/AddCardModal'
+
 import FlipCard from '../flipCard/FlipCard'
 import { uuid } from 'uuidv4';
 
@@ -26,7 +27,6 @@ const Category = (props) => {
 
     const [showAddCardModal, setShowAddCardModal] = useState(false);
     const [CategoryIdAddCard, setCategoryIdAddCard] = useState('');
-
 
     function handleShowEditModal(Id) {
         setShowEditModal(true);
@@ -43,6 +43,8 @@ const Category = (props) => {
         setCategoryIdAddCard(Id)
     }
 
+
+
     function handleCloseEditModal() {
         setShowEditModal(false);
     }
@@ -54,6 +56,7 @@ const Category = (props) => {
     function handleCloseAddCardModal() {
         setShowAddCardModal(false);
     }
+
 
     const BackToCategories = () => {
         store.dispatch(setCurrentCategory({ Name: 'No', Id: '' }))
@@ -67,6 +70,10 @@ const Category = (props) => {
             <DeleteModal ShowDelete={showDeleteModal} CloseDeleteModal={handleCloseDeleteModal} CategoryId={CategoryIdDelete} />
 
             <AddCardModal ShowAddCardModal={showAddCardModal} CloseAddCardModal={handleCloseAddCardModal} CategoryId={CategoryIdAddCard} />
+
+
+
+
 
             <div className='SelectedCategoryHeader'>
                 <Link className='SelectedCategoryBackButton' onClick={BackToCategories} to="/FlashCards"><MdArrowBackIos /></Link>
@@ -95,7 +102,7 @@ const Category = (props) => {
 
                 {
                     props.Cards.find(Cat => Cat.Id === props.User.CurrentCategoryId).Cards.map(Card => {
-                        return <FlipCard key={uuid()} Card={Card} />
+                        return <FlipCard key={uuid()} Card={Card} CategoryId={props.User.CurrentCategoryId} />
                     })
                 }
             </div>

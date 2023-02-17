@@ -42,21 +42,21 @@
 
 
 
-.AddModalCardBody {
+.EditModalCardBody {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
 
-.AddModalCardTitle {
+.EditModalCardTitle {
     color: white;
     font-family: var(--Fonte);
     font-size: 1.1rem;
     font-weight: 600;
 }
 
-.AddModalCardRadios {
+.EditModalCardRadios {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -66,7 +66,7 @@
 }
 
 
-.AddModalCardRadio {
+.EditModalCardRadio {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -75,24 +75,24 @@
 }
 
 
-.AddModalCardRadio>label {
+.EditModalCardRadio>label {
     color: rgb(73, 72, 72);
     font-family: var(--Fonte);
     font-size: .9rem;
 }
 
-.AddModalCardRadio>input {
+.EditModalCardRadio>input {
     margin-right: .2rem;
 }
 
-.AddModalCardTextChoiceContainer {
+.EditModalCardTextChoiceContainer {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin-bottom: 1rem;
 }
 
-.AddModalCardTextChoiceContainer>textarea {
+.EditModalCardTextChoiceContainer>textarea {
     border-radius: .5rem;
     padding: .5rem .7rem;
     border: none;
@@ -107,14 +107,14 @@
 
 
 
-.AddModalCardMultipleChoiceContainer {
+.EditModalCardMultipleChoiceContainer {
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
 }
 
 
-.AddModalCardMultipleChoiceContainer>textarea {
+.EditModalCardMultipleChoiceContainer>textarea {
     border-radius: .5rem;
     padding: .5rem .7rem;
     border: none;
@@ -126,7 +126,7 @@
 }
 
 
-.AddModalCardOptionsTitle {
+.EditModalCardOptionsTitle {
     margin: 1rem 0 0rem 0rem;
     color: white;
     font-family: var(--Fonte);
@@ -134,7 +134,7 @@
     font-weight: 600;
 }
 
-.AddModalCardOption {
+.EditModalCardOption {
     width: 100%;
     display: grid;
     grid-template-columns: 10% 70% 30%;
@@ -148,7 +148,7 @@
 
 }
 
-.AddModalCardOptionDot {
+.EditModalCardOptionDot {
     width: 8px;
     height: 8px;
     background-color: white;
@@ -160,7 +160,7 @@
 
 
 
-.AddModalCardOptionName>p {
+.EditModalCardOptionName>p {
     font-family: var(--Fonte);
     font-size: .8rem;
     color: rgb(73, 72, 72);
@@ -171,7 +171,7 @@
     overflow: hidden;
 }
 
-.AddModalCardOptionCorret {
+.EditModalCardOptionCorret {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -180,7 +180,7 @@
 }
 
 
-.AddModalCardOptionCorret>label {
+.EditModalCardOptionCorret>label {
     font-family: var(--Fonte);
     font-size: .8rem;
     color: white;
@@ -188,19 +188,19 @@
     color: rgb(114, 113, 113);
 }
 
-.AddModalCardOptionCorret>input {
+.EditModalCardOptionCorret>input {
     font-family: var(--Fonte);
     font-size: .8rem;
     color: white;
     font-weight: 400;
 }
 
-.AddModalCardCorrectOption {
+.EditModalCardCorrectOption {
     color: #08672e !important;
 }
 
 
-.AddModalCardOption>button {
+.EditModalCardOption>button {
     border: none;
     background-color: transparent;
     font-size: 1rem;
@@ -210,7 +210,7 @@
     cursor: pointer;
 }
 
-.AddModalCardOption>button>svg {
+.EditModalCardOption>button>svg {
     border: none;
     background-color: transparent;
     font-size: 1.2rem;
@@ -219,7 +219,7 @@
 
 
 
-.AddModalCardAddOptionForm {
+.EditModalCardAddOptionForm {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -227,7 +227,7 @@
     gap: .5rem;
 }
 
-.AddModalCardAddOptionForm>input {
+.EditModalCardAddOptionForm>input {
     border-radius: .5rem;
     padding: .5rem .7rem;
     border: none;
@@ -239,7 +239,7 @@
     flex-grow: 1;
 }
 
-.AddModalCardAddOptionForm>button {
+.EditModalCardAddOptionForm>button {
     border-radius: .5rem;
     padding: .5rem .7rem;
     border: none;
@@ -251,7 +251,7 @@
 }
 
 
-.AddModalCardErrorMessage {
+.EditModalCardErrorMessage {
     width: 100%;
     color: #B71C1C;
     font-family: var(--Fonte);
@@ -262,7 +262,7 @@
 }
 
 
-.AddModalCardButtons {
+.EditModalCardButtons {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -271,7 +271,7 @@
     gap: 1rem;
 }
 
-.AddModalCardButtons>button {
+.EditModalCardButtons>button {
     border-radius: .5rem;
     padding: .5rem .7rem;
     border: none;
@@ -294,13 +294,13 @@
         font-size: .9rem;
     }
 
-    .AddModalCardBodyBootstrap {
+    .EditModalCardBodyBootstrap {
         padding: 1rem !important;
         display: flex !important;
         flex-direction: column !important;
     }
 
-    .AddModalCardBody {
+    .EditModalCardBody {
         flex-grow: 1;
     }
 

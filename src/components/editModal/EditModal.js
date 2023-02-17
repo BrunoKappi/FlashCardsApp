@@ -14,7 +14,7 @@ const EditModal = (props) => {
     useEffect(() => {
         if (props.CategoryId)
             setCurrentCategory(props.Categories.find((Card) => Card.Id.trim() === props.CategoryId))
-    }, [props.CategoryId]);
+    }, [props.CategoryId,props.Categories]);
 
     useEffect(() => {
         setCategoryName(CurrentCategory.Name)
@@ -40,7 +40,7 @@ const EditModal = (props) => {
         }
 
         handleClose()
-        console.log(EditedCategory)
+        //console.log(EditedCategory)
     }
 
     return (
@@ -49,7 +49,7 @@ const EditModal = (props) => {
                 <Modal.Body >
                     <div className='AddCategoryModalBody'>
                         <div className='EditCategoryModalTitle'>
-                            <p>Edit Category</p>
+                            <p>Edit Category Name</p>
                         </div>
                         <form onSubmit={handleEditCategory}>
                             <div className='AddCategoryFormGroup'>
