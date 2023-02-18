@@ -3,13 +3,13 @@ import './FlipCard.css'
 import { connect } from 'react-redux'
 import { MdModeEditOutline } from 'react-icons/md';
 import { MdDelete } from 'react-icons/md';
-import { uuid } from 'uuidv4';
+import { v4 as uuid_v4 } from "uuid"; 
 import EditCardModal from '../editCardModal/EditCardModal'
 import DeleteCardModal from '../deleteCardModal/DeleteCardModal'
 
 const FlipCard = (props) => {
 
-    const [flip, setFlip] = useState(false)
+    const [flip, setFlip] = useState(false) 
     const [height, setHeight] = useState('initial')
 
     const [showEditCardModal, setShowEditCardModal] = useState(false);    
@@ -59,7 +59,7 @@ const FlipCard = (props) => {
                     <div className='FlipCardQuestion'>{props.Card.Question}</div>
                     <div className='FlipCardOptions'>
                         {props.Card.Options.map(Option => {
-                            return <p key={uuid()}> <div key={uuid()} className='FlipCardOptionDot'></div>  {Option.Option}</p>
+                            return <p key={uuid_v4()}> <span key={uuid_v4()} className='FlipCardOptionDot'></span>  {Option.Option}</p>
                         })}
                     </div>
                 </div>

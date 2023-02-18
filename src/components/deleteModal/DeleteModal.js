@@ -38,7 +38,7 @@ const DeleteModal = (props) => {
 
     return (
         <div className='DeleteModal'>
-            <Modal size="lg" centered={true} show={props.ShowDelete} >
+            <Modal size="lg" centered={true} show={props.ShowDelete} onHide={handleClose}>
                 <Modal.Body >
                     <div className='AddCategoryModalBody'>
                         <div className='DeleteCategoryModalTitle'>

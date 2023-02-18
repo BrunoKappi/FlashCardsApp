@@ -45,7 +45,7 @@ const EditModal = (props) => {
 
     return (
         <div className='EditModal'>
-            <Modal size="md" centered={true} show={props.ShowEdit} >
+            <Modal size="md" centered={true} show={props.ShowEdit} onHide={handleClose}>
                 <Modal.Body >
                     <div className='AddCategoryModalBody'>
                         <div className='EditCategoryModalTitle'>

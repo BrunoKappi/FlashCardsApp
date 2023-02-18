@@ -17,6 +17,10 @@
     box-shadow: -1px -1px 5px 0px rgba(0, 0, 0, 0.75);
 }
 
+.BottomBarNoShow{
+    display: none !important;
+}
+
 .BottomBar>a>svg {
     color: rgba(34, 193, 195, 1);
     font-size: 1.5rem;

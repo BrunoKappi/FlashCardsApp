@@ -26,6 +26,13 @@ export const setUser = (user) => {
     })
 }
 
+export const setPlaying = (Playing) => {
+    return ({
+        type: 'SET_PLAYING',
+        Playing
+    })
+}
+
 export const setCurrentCategory = (CurrentCategory) => {
     return ({
         type: 'SET_CURRENT_CATEGORY',

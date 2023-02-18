@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './EditCardModal.css'
 import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
-import { uuid } from 'uuidv4';
+import { v4 as uuid_v4 } from "uuid"; 
 import { editCategory } from '../../store/actions/CardsActions';
 import { MdDelete } from 'react-icons/md';
 import store from '../../store/store';
@@ -135,7 +135,7 @@ const EditCardModal = (props) => {
 
     return (
         <div className='EditCardModal'>
-            <Modal size="md" centered={true} show={props.ShowEditCardModal} fullscreen={'md-down'}>
+            <Modal size="md" centered={true} show={props.ShowEditCardModal} fullscreen={'md-down'} onHide={handleClose}>
                 <Modal.Body className='EditModalCardBodyBootstrap' >
                     <div className='EditModalCardBody'>
                         <div className='EditModalCardTitle'>
@@ -167,7 +167,7 @@ const EditCardModal = (props) => {
                                     Options
                                 </div>}
                                 {OptionsSet.map((OP, Index) => {
-                                    return <div key={uuid()} className='EditModalCardOption'>
+                                    return <div key={uuid_v4()} className='EditModalCardOption'>
                                         <button onClick={e => handleDeleteOption(OP.Id)}>
                                             <MdDelete />
                                         </button>

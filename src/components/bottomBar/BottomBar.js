@@ -15,7 +15,7 @@ const BottomBar = (props) => {
     }
 
     return (
-        <div className='BottomBar'>
+        <div className={props.User.Playing === false ? 'BottomBar' : 'BottomBarNoShow'}>
             <Link onClick={e => SetFuction('No')} to="/">
                 <AiFillHome className={props.User.Function === 'No' ? 'ActiveBottomBarItem' : ''} />
             </Link>

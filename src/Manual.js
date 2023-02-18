@@ -9,7 +9,9 @@ import { MdDelete } from 'react-icons/md';
 import { MdAddCircle } from 'react-icons/md';
 import Category from './components/category/Category'
 import Modal from 'react-bootstrap/Modal';
-import { uuid } from 'uuidv4';
+
+
+import { v4 as uuid_v4 } from "uuid";
 import EditModal from './components/editModal/EditModal'
 import DeleteModal from './components/deleteModal/DeleteModal'
 
@@ -83,7 +85,7 @@ const Manual = (props) => {
     const Index = props.Cards.length + 2
     const newCategory = {
       Index,
-      Id: uuid(),
+      Id: uuid_v4(),
       Name: NewCategoryName,
       Cards: []
     }
@@ -111,7 +113,7 @@ const Manual = (props) => {
                 </div>
                 <form onSubmit={handleAddCategory}>
                   <div className='AddCategoryFormGroup'>
-                    <input type="text" placeholder='Category name' value={NewCategoryName} onChange={e => setNewCategoryName(e.target.value)} />
+                    <input type="text" placeholder='Category name' value={NewCategoryName} onChange={e => setNewCategoryName(e.target.value)} autoFocus/>
                   </div>
                 </form>
                 <div className='AddCategoryButtons'>

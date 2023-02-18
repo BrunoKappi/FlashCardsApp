@@ -6,6 +6,7 @@ const UserDefault = {
     CurrentTab: 'Home',
     CurrentCategory: 'No',
     CurrentCategoryId: '',
+    Playing: false
 }
 
 const User = (state = UserDefault, action) => {
@@ -21,6 +22,11 @@ const User = (state = UserDefault, action) => {
             return {
                 ...state,
                 Function: action.Function
+            }
+        case 'SET_PLAYING':
+            return {
+                ...state,
+                Playing: action.Playing
             }
         case 'SET_CURRENT_CATEGORY':
             return {

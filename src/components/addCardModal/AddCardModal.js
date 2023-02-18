@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import './AddCardModal.css'
 import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
-import { uuid } from 'uuidv4';
+import { v4 as uuid_v4 } from "uuid"; 
 import { editCategory } from '../../store/actions/CardsActions';
 import { MdDelete } from 'react-icons/md';
 import store from '../../store/store';
@@ -96,7 +96,7 @@ const AddCardModal = (props) => {
         }
         else if (CardType === 'MultipleChoice') {
             const NewCard = {
-                Id: uuid(),
+                Id: uuid_v4(),
                 Type: CardType,
                 Question: Question,
                 Answer: OptionsSet[CorrectIndex],
@@ -113,7 +113,7 @@ const AddCardModal = (props) => {
         }
         else if (CardType === 'Text') {
             const NewCard = {
-                Id: uuid(),
+                Id: uuid_v4(),
                 Type: CardType,
                 Question: Question,
                 Answer: { Id: 1, Option: Answer, IsAnswer: true },
@@ -137,7 +137,7 @@ const AddCardModal = (props) => {
 
     return (
         <div className='AddCardModal'>
-            <Modal size="md" centered={true} show={props.ShowAddCardModal} fullscreen={'md-down'}>
+            <Modal size="md" centered={true} show={props.ShowAddCardModal} fullscreen={'md-down'} onHide={handleClose}>
                 <Modal.Body className='AddModalCardBodyBootstrap' >
                     <div className='AddModalCardBody'>
                         <div className='AddModalCardTitle'>
@@ -169,7 +169,7 @@ const AddCardModal = (props) => {
                                     Options
                                 </div>}
                                 {OptionsSet.map((OP, Index) => {
-                                    return <div key={uuid()} className='AddModalCardOption'>
+                                    return <div key={uuid_v4()} className='AddModalCardOption'>
                                         <button onClick={e => handleDeleteOption(OP.Id)}>
                                             <MdDelete />
                                         </button>
