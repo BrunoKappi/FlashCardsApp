@@ -1,0 +1,74 @@
+.PlayingHeader {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 20% 60% 20% !important; 
+    align-items: center;
+    justify-content: center;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    margin-bottom: 2rem;
+}
+
+
+.PlayingHeaderProgressBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.PlayingHeaderNextButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.PlayingHeaderExitButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.PlayingHeaderExitButton>svg {
+    color: white;
+    font-family: var(--Fonte);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.PlayingHeaderNextButton>svg {
+    color: white;
+    font-family: var(--Fonte);
+    font-size: 2rem !important;
+    cursor: pointer;
+}
+
+
+.PlayingHeaderProgressBar{   
+     height: 2rem;
+   
+    width: 100%;
+    background-color: aqua;
+}
+
+
+
+
+
+
+
+@media (max-width: 650px) {
+
+    .PlayingHeader {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 20% 60% 20% !important; 
+        align-items: center;
+        justify-content: center;
+       padding: 0;
+        margin-bottom: 2rem;
+    }
+     
+  
+  
+  }

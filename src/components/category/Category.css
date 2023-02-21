@@ -160,7 +160,7 @@
 
     .SelectedCategoryButtons {
         position: fixed;
-        bottom: 8.5rem;
+        bottom: 5.5rem;
         right: 1rem;
         margin: 0;
         z-index: 3;
@@ -168,7 +168,7 @@
 
     .AddCardButton {
         position: fixed;
-        bottom: 4.5rem;
+        bottom: 1.5rem;
         right: 1rem;
         margin: 0;
         padding: 1rem 2rem;

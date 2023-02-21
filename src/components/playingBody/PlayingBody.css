@@ -1,0 +1,65 @@
+.PlayingHeader {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 10% 80% 10%;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.PlayingHeaderProgressBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.PlayingHeaderNextButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.PlayingHeaderExitButton {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+}
+
+.PlayingHeaderExitButton>svg {
+    color: white;
+    font-family: var(--Fonte);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.PlayingHeaderNextButton>svg {
+    color: white;
+    font-family: var(--Fonte);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+
+.PlayingHeaderProgressBar{   
+    flex-grow: 1;
+    height: 2rem;
+   
+    width: 100%;
+    background-color: aqua;
+}
+
+.PlayingBody{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+
+.RoundComplete{
+    font-family: var(--Fonte);
+    color: white;
+}

@@ -13,7 +13,7 @@ const Layout = (props) => {
             <Header />
             <Buttons />
             <Outlet />
-            <BottomBar />
+           
         </>
     )
 }

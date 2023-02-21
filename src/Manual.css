@@ -293,7 +293,7 @@
 
     .ButtonsCategories {
         position: fixed;
-        bottom: 4rem;
+        bottom: .5rem;
         right: .7rem;
         justify-content: center;
 

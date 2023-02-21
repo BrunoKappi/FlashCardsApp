@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './Category.css'
 import store from '../../store/store';
 import { connect } from 'react-redux'
@@ -14,14 +14,14 @@ import DeleteModal from '../deleteModal/DeleteModal'
 import AddCardModal from '../addCardModal/AddCardModal'
 
 import FlipCard from '../flipCard/FlipCard'
-import { v4 as uuid_v4 } from "uuid"; 
+import { v4 as uuid_v4 } from "uuid";
 import Playing from '../playing/Playing';
 
 const Category = (props) => {
 
 
     const [PLaying, setPLaying] = useState(false);
-
+    const [CurrentCategory, setCurrentCategory] = useState({ Cards: [] });
     const [showEditModal, setShowEditModal] = useState(false);
     const [CategoryIdEdit, setCategoryIdEdit] = useState('');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -29,6 +29,14 @@ const Category = (props) => {
 
     const [showAddCardModal, setShowAddCardModal] = useState(false);
     const [CategoryIdAddCard, setCategoryIdAddCard] = useState('');
+
+
+    useEffect(() => {
+        if (!props.User.CurrentCategoryId) return
+        setCurrentCategory(props.Cards.find((Card) => Card.Id.trim() === props.User.CurrentCategoryId))
+        //console.log(props.Cards.find((Card) => Card.Id.trim() === props.User.CurrentCategoryId))
+
+    }, [props.User.CurrentCategoryId, props.Cards]);
 
     function handleShowEditModal(Id) {
         setShowEditModal(true);
@@ -62,9 +70,15 @@ const Category = (props) => {
     }
 
     const handleStartPLaying = () => {
-        console.log('PLaying')
+        //console.log('PLaying')
         store.dispatch(setPlaying(true))
         setPLaying(true)
+    }
+
+    const handleStopPLaying = () => {
+        //console.log('PLaying')
+        store.dispatch(setPlaying(false))
+        setPLaying(false)
     }
 
     return (
@@ -88,10 +102,12 @@ const Category = (props) => {
 
                     <div className='SelectedCategoryIcons'>
                         <div className='SelectedCategoryButtons'>
-                            <button onClick={handleStartPLaying}>
-                                {<MdPlayCircle />}
-                                Play
-                            </button>
+                            {CurrentCategory.Cards.length > 0 &&
+                                <button onClick={handleStartPLaying}>
+                                    {<MdPlayCircle />}
+                                    Play
+                                </button>
+                            }
                         </div>
                         <MdModeEditOutline onClick={e => handleShowEditModal(props.User.CurrentCategoryId)} />
                         <MdDelete onClick={e => handleShowDeleteModal(props.User.CurrentCategoryId)} />
@@ -112,7 +128,7 @@ const Category = (props) => {
 
             {PLaying && <div className='SelectedCategoryPlaying'>
 
-                <Playing />
+                <Playing CurrentCategoryId={props.User.CurrentCategoryId} Categories={props.Cards} StopPlaying={handleStopPLaying} />
 
             </div>}
 
