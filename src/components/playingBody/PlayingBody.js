@@ -14,7 +14,7 @@ export default function PlayingBody(props) {
 
     return (
         <div className='PlayingBody'>
-            {props.PlayingProgress < 100 && <FlipCard CardToPlay={Card} />}
+            {props.PlayingProgress < 100 && <FlipCard CardToPlay={Card} StopPlaying={props.StopPlaying} ToNextCard={props.ToNextCard} />}
 
             {props.PlayingProgress >= 100 && <div className='RoundComplete'>
                 Round Complete

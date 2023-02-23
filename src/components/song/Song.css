@@ -1,0 +1,16 @@
+.SongSwitchButton {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.SongSwitchButton>svg {
+    color: rgb(121, 119, 119);
+    font-size: 1.2rem;
+}
+
+.SongContainer {
+    position: fixed;
+    bottom: .5rem;
+    left: .5rem;
+}

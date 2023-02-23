@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import './FlipCard.css';
 import { DefaultCard } from '../../Default/DefaultObjects'
 import { v4 as uuid_v4 } from "uuid";
-import { MdClear, MdCheck } from 'react-icons/md';
+import { MdClear, MdCheck, MdNavigateNext } from 'react-icons/md';
 
 
-const FlipCard = ({ CardToPlay = {} }) => {
+
+const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard }) => {
 
   const [Card, setCard] = useState({ ...DefaultCard });
   const [OptionsSet, setOptionsSet] = useState([]);
@@ -14,6 +15,7 @@ const FlipCard = ({ CardToPlay = {} }) => {
   const [Played, setPlayed] = useState(false);
   const [Message, setMessage] = useState('');
   const [Round, setRound] = useState('No');
+  const [Filled, setFilled] = useState(false);
 
   useEffect(() => {
     if (Object.keys(CardToPlay).length > 0) {
@@ -25,9 +27,19 @@ const FlipCard = ({ CardToPlay = {} }) => {
       setMessage('')
       setPlayed(false)
       setTextAnswer('')
+      setCorrectIndex(-1)
     }
 
   }, [CardToPlay]);
+
+  useEffect(() => {
+    if (Card.Type === 'Text' && TextAnswer)
+      setFilled(true)
+    else if (Card.Type === 'MultipleChoice' && CorrectIndex !== -1)
+      setFilled(true)
+    else
+      setFilled(false)
+  }, [TextAnswer, CorrectIndex]);
 
 
   const [flip, setFlip] = useState(false)
@@ -50,6 +62,14 @@ const FlipCard = ({ CardToPlay = {} }) => {
   }, [])
 
 
+  const StopPlayingFunc = () => {
+    StopPlaying()
+  }
+
+  const ToNextCardFunc = () => {
+    ToNextCard()
+  }
+
 
   const handleChangeCorrectOption = (event) => {
     const OptionID = event.target.value
@@ -68,11 +88,11 @@ const FlipCard = ({ CardToPlay = {} }) => {
     if (Card.Type === 'Text') {
       if (TextAnswer.trim().toLowerCase() == Card.Answer.Option.trim().toLowerCase()) {
         setPlayed(true)
-        setMessage(Card.Answer.Option)
+        setMessage('Answer: ' + Card.Answer.Option)
         setRound('Right')
       } else {
         setPlayed(true)
-        setMessage(Card.Answer.Option)
+        setMessage('Answer: ' + Card.Answer.Option)
         setRound('Wrong')
       }
       //console.log(TextAnswer, Card.Answer.Option)
@@ -82,11 +102,11 @@ const FlipCard = ({ CardToPlay = {} }) => {
       } else {
         if (OptionsSet[CorrectIndex].Option.trim().toLowerCase() == Card.Answer.Option.trim().toLowerCase()) {
           setPlayed(true)
-          setMessage(OptionsSet[CorrectIndex].Option)
+          setMessage('Answer: ' + OptionsSet[CorrectIndex].Option)
           setRound('Right')
         } else {
           setPlayed(true)
-          setMessage(Card.Answer.Option)
+          setMessage('Answer: ' + Card.Answer.Option)
           setRound('Wrong')
         }
       }
@@ -119,12 +139,17 @@ const FlipCard = ({ CardToPlay = {} }) => {
             </div>
           })}
           <div className='PlayingFlipCardButtons'>
-            {!Played && <button>Check</button>}
+            {!Played && <button disabled={!Filled}>Check</button>}
             <div className='RoundIconContainer'>
               {Round === 'Right' && <div className='RoundIcon IconCorrect'><MdCheck /></div>}
               {Round === 'Wrong' && <div className='RoundIcon IconWrong'><MdClear /></div>}
             </div>
             {Played && <span className='RoundMessage'>{Message}</span>}
+            <div className='RoundIconContainer'>
+              {Round !== 'No' && <div className='NextIcon'>
+                <button onClick={ToNextCardFunc}>Next <MdNavigateNext /></button>
+              </div>}
+            </div>
           </div>
         </form>
 
@@ -136,12 +161,17 @@ const FlipCard = ({ CardToPlay = {} }) => {
         <form className='PlayingFlipCardTextForm' onSubmit={handleCheckQuestion}>
           {Round === 'No' && <input type="text" placeholder='Answer' value={TextAnswer} onChange={e => setTextAnswer(e.target.value)} />}
           <div className='PlayingFlipCardButtons' >
-            {!Played && <button>Check</button>}
+            {!Played && <button disabled={!Filled}>Check</button>}
             <div className='RoundIconContainer'>
               {Round === 'Right' && <div className='RoundIcon IconCorrect'><MdCheck /></div>}
               {Round === 'Wrong' && <div className='RoundIcon IconWrong'><MdClear /></div>}
             </div>
             {Played && <span className='RoundMessage'>{Message}</span>}
+            <div className='RoundIconContainer'>
+              {Round !== 'No' && <div className='NextIcon'>
+                <button onClick={ToNextCardFunc}>Next <MdNavigateNext /></button>
+              </div>}
+            </div>
           </div>
         </form>
 

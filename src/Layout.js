@@ -5,15 +5,20 @@ import Header from './Header'
 import Buttons from './components/buttons/Buttons'
 import BottomBar from './components/bottomBar/BottomBar'
 
+import Song from './components/song/Song'
 
 const Layout = (props) => {
+
+
 
     return (
         <>
             <Header />
             <Buttons />
             <Outlet />
-           
+            <Song />
+
+
         </>
     )
 }
