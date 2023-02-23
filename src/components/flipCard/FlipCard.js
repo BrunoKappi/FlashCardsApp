@@ -44,6 +44,7 @@ const FlipCard = (props) => {
 
     useEffect(setMaxHeight, [props.Card.Question, props.Card.Answer, props.Card.Options])
     useEffect(() => {
+        //console.log("flip")
         window.addEventListener('resize', setMaxHeight)
         return () => window.removeEventListener('resize', setMaxHeight)
     }, [])

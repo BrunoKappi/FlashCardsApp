@@ -41,7 +41,8 @@ const User = (state = UserDefault, action) => {
                 Function: 'No',
                 CurrentCategory: 'No',
                 CurrentCategoryId: 'No',
-                CurrentTab: 'Home'
+                CurrentTab: 'Home',
+                Playing: false
             }
         case 'SET_USER':
             return action.user

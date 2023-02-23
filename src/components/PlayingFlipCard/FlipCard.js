@@ -3,10 +3,12 @@ import './FlipCard.css';
 import { DefaultCard } from '../../Default/DefaultObjects'
 import { v4 as uuid_v4 } from "uuid";
 import { MdClear, MdCheck, MdNavigateNext } from 'react-icons/md';
+import { RiCheckboxBlankCircleFill } from 'react-icons/ri';
+import { FaCheckCircle } from 'react-icons/fa';
 
 
 
-const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard }) => {
+const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
 
   const [Card, setCard] = useState({ ...DefaultCard });
   const [OptionsSet, setOptionsSet] = useState([]);
@@ -71,8 +73,7 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard }) => {
   }
 
 
-  const handleChangeCorrectOption = (event) => {
-    const OptionID = event.target.value
+  const handleChangeCorrectOption = (OptionID) => {
     const OptionIndex = OptionsSet.findIndex(op => op.Id == OptionID)
     const NewOptionsSet = [...OptionsSet]
     NewOptionsSet.forEach(op => { op.IsAnswer = false })
@@ -82,6 +83,14 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard }) => {
     //console.log([...NewOptionsSet])
   }
 
+
+
+  const FlipTheCard = () => {
+    if (Automatic === false)
+      setFlip(!flip)
+    else
+      return
+  }
 
   const handleCheckQuestion = (e) => {
     e.preventDefault()
@@ -115,7 +124,7 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard }) => {
 
   return (
     <div className='PlayingFlipCardContainer'>
-      <div className={`PlayingFlipCard  ${flip ? 'PlayingFlipCardFlip' : ''}`} onClick={() => setFlip(!flip)} style={{ height: height }}>
+      <div className={`PlayingFlipCard  ${flip ? 'PlayingFlipCardFlip' : ''}`} onClick={FlipTheCard} style={{ height: height }}>
         <div className='PlayingFlipCardFront' ref={FrontElement}>
           <div className='PlayingFlipCardQuestion'>
             <p>{Card.Question}</p>
@@ -133,9 +142,10 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard }) => {
 
         <form className='PlayingFlipCardOptions' onSubmit={handleCheckQuestion}>
           {Round === 'No' && Card.Options.map(Option => {
-            return <div key={uuid_v4()} className='PlayingFlipCardOption'>
-              <input key={uuid_v4()} type="checkbox" checked={Option.IsAnswer === true} value={Option.Id} onChange={handleChangeCorrectOption} />
-              <p>{Option.Option}</p>
+            return <div key={uuid_v4()} className={Option.IsAnswer ? 'PlayingFlipCardOption IsAnswer' : 'PlayingFlipCardOption '} onClick={e => handleChangeCorrectOption(Option.Id)}>
+              {Option.IsAnswer ? <FaCheckCircle onClick={e => handleChangeCorrectOption(Option.Id)} /> : <RiCheckboxBlankCircleFill onClick={e => handleChangeCorrectOption(Option.Id)} />}
+
+              <p onClick={e => handleChangeCorrectOption(Option.Id)}>{Option.Option}</p>
             </div>
           })}
           <div className='PlayingFlipCardButtons'>

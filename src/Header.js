@@ -6,6 +6,8 @@ import store from './store/store'
 import { resetFunction } from './store/actions/UserActions'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { FaPlay } from 'react-icons/fa';
+import { setPlaying } from './store/actions/UserActions'
 
 const Header = (props) => {
 
@@ -13,14 +15,19 @@ const Header = (props) => {
         store.dispatch(resetFunction())
     }
 
+    const handleStartPLaying = () => {
+        store.dispatch(setPlaying(true))
+    }
+
     return (
-        <div className={props.User.CurrentCategory === 'No' ? 'Header' : 'Header HeaderNoShow'}>
+        <div className={(props.User.CurrentCategory === 'No' || props.User.CurrentCategory === 'CardsFilled') && props.User.Playing === false ? 'Header' : 'Header HeaderNoShow'}>
             <div className='LogoHeaderCointainer'>
                 <Link to={'/'}>
                     <img onClick={reset} className='LogoHeader' src={Logo} alt="" />
                 </Link>
             </div>
-            <div className='UserPhotoHeaderCointainer'>
+            <div className='UserHeaderPhotoAndPlayButtonContainer'>
+                {props.User.CurrentCategory === 'CardsFilled' && <button onClick={handleStartPLaying} className='AutomaticPlayButton'>Play <FaPlay /> </button>}
                 <img className='UserPhotoHeader' src={User} alt="" />
             </div>
         </div>

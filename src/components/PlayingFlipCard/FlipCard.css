@@ -69,6 +69,13 @@
   background-color: white;
   width: 100%;
   border-radius: .25rem;
+  cursor: pointer;
+}
+
+
+.IsAnswer {
+  background-color: var(--yellow);
+  color: white;
 }
 
 .PlayingFlipCardOption>p {
@@ -76,14 +83,23 @@
   font-family: var(--Fonte);
   font-size: .9rem;
   color: rgb(75, 74, 74);
-
 }
 
-.PlayingFlipCardOption>input {
+.IsAnswer > p {
+  color: white;
+}
+
+
+
+.PlayingFlipCardOption>svg {
   margin-right: .5rem;
+  color: var(--yellow);
 
 }
 
+.IsAnswer > svg{
+  color: white;
+}
 
 .PlayingFlipCardButtons {
   display: flex;
@@ -118,7 +134,7 @@
 }
 
 .PlayingFlipCardButtons>button:disabled {
-  background-color: rgb(223, 223, 169) !important; 
+  background-color: rgb(223, 223, 169) !important;
   cursor: not-allowed;
 }
 
@@ -161,7 +177,7 @@
 }
 
 
-.NextIcon > button{
+.NextIcon>button {
   margin-top: 2rem;
   cursor: pointer;
   border: none;
@@ -184,7 +200,7 @@
 
 
 
-.NextIcon > button >svg{
+.NextIcon>button>svg {
   font-size: 1.1rem;
   color: white;
   font-family: var(--Fonte);

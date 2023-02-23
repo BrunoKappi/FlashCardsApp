@@ -5,12 +5,16 @@
 }
 
 .SongSwitchButton>svg {
-    color: rgb(121, 119, 119);
+    color: black;
     font-size: 1.2rem;
 }
 
 .SongContainer {
-    position: fixed;
+    position: absolute;
     bottom: .5rem;
     left: .5rem;
 }
+
+
+
+@media (max-width: 650px) {}

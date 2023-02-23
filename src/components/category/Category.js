@@ -16,6 +16,7 @@ import AddCardModal from '../addCardModal/AddCardModal'
 import FlipCard from '../flipCard/FlipCard'
 import { v4 as uuid_v4 } from "uuid";
 import Playing from '../playing/Playing';
+import Song from '../song/Song';
 
 const Category = (props) => {
 
@@ -133,7 +134,7 @@ const Category = (props) => {
             </div>}
 
 
-
+           <Song Playing = {PLaying}/>
 
 
         </div>

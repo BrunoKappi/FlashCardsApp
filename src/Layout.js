@@ -16,7 +16,7 @@ const Layout = (props) => {
             <Header />
             <Buttons />
             <Outlet />
-            <Song />
+            
 
 
         </>

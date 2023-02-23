@@ -14,7 +14,7 @@ const store = createStore(
 store.subscribe(() => {
     localStorage.setItem("FlashCardsCategories", JSON.stringify(store.getState().Cards))
     localStorage.setItem("FlashCardsUserInfo", JSON.stringify(store.getState().User))
-    //console.log("User", store.getState().User)    
+    console.log("User", store.getState().User)    
 })
 
 export default store

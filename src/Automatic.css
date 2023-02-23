@@ -16,8 +16,10 @@ body {
   display: none;
 }
 
-.container {
+.FlashCardsListContainer {
   margin: 1rem 1rem;
+  padding: .5rem;
+
 }
 
 .AutomaticHeaderContainer {

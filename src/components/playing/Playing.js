@@ -18,16 +18,14 @@ export default function Playing(props) {
         setCurrentCategory(props.Categories.find((Card) => Card.Id.trim() === props.CurrentCategoryId))
         setCards(props.Categories.find((Card) => Card.Id.trim() === props.CurrentCategoryId).Cards)
 
-        //console.log("CARDS DO PLAY", props.Categories.find((Card) => Card.Id.trim() === props.CurrentCategoryId).Cards)
+        console.log("CARDS DO PLAY", props.Categories.find((Card) => Card.Id.trim() === props.CurrentCategoryId).Cards)
 
     }, [props.CategoryId, props.Categories]);
 
 
     useEffect(() => {
         if (Cards.length === 0) return
-
-        setPlayingProgress(Math.round((PlayingIndex / Cards.length) * 100))
-        //console.log("INDEX", Math.round((PlayingIndex / Cards.length) * 100))
+        setPlayingProgress(Math.round((PlayingIndex / Cards.length) * 100))       
     }, [PlayingIndex, Cards]);
 
 
@@ -54,7 +52,7 @@ export default function Playing(props) {
     return (
         <div className='PlayingContainer'>
             <PlayingHeader PlayingProgress={PlayingProgress} StopPlaying={StopPlaying} ToNextCard={ToNextCard} />
-            <PlayingBody Cards={Cards} CurrentCategory PlayingIndex={PlayingIndex} PlayingProgress={PlayingProgress} StopPlaying={StopPlaying} ToNextCard={ToNextCard} />
+            <PlayingBody Cards={Cards} CurrentCategory PlayingIndex={PlayingIndex} PlayingProgress={PlayingProgress} StopPlaying={StopPlaying} ToNextCard={ToNextCard} Automatic={false}/>
         </div>
 
     )
