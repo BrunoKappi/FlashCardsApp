@@ -34,12 +34,16 @@
 .PlayingFlipCard .PlayingFlipCardFront,
 .PlayingFlipCard .PlayingFlipCardBack {
   position: absolute;
-  padding: .6rem;
-  padding-bottom: 1rem;
+  padding: 4rem 1.5rem;
+  padding-bottom: 4rem;
   backface-visibility: hidden;
   color: white;
   font-family: var(--Fonte);
   font-size: .8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .PlayingFlipCardQuestion {
@@ -85,7 +89,7 @@
   color: rgb(75, 74, 74);
 }
 
-.IsAnswer > p {
+.IsAnswer>p {
   color: white;
 }
 
@@ -97,7 +101,7 @@
 
 }
 
-.IsAnswer > svg{
+.IsAnswer>svg {
   color: white;
 }
 
@@ -108,6 +112,18 @@
   align-items: center;
   padding: .5rem .5rem;
   width: 100%;
+}
+
+.ICON {
+  position: absolute;
+  left: -2rem;
+  bottom: -2rem;
+
+}
+
+.REVERSE {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
 }
 
 .PlayingFlipCardButtons>button {
@@ -161,7 +177,24 @@
   color: rgb(73, 72, 72);
   width: 100%;
   margin-bottom: 1rem;
+
 }
+
+.PlayingFlipCardTextForm>textarea {
+  border-radius: .5rem;
+  padding: .5rem .7rem;
+  border: none;
+  background-color: #F7F7F7;
+  font-family: var(--Fonte);
+  font-size: .8rem;
+  outline: none;
+  color: rgb(73, 72, 72);
+  width: 100%;
+  margin-bottom: 1rem;
+  min-height: 5rem;
+}
+
+
 
 
 .RoundIcon {
@@ -236,6 +269,7 @@
 
 
 
+
 @media (max-width: 850px) {
 
   .PlayingFlipCardContainer {
@@ -247,6 +281,11 @@
 }
 
 
+.NextCardButton {
+  display: absolute !important;
+  bottom: 1rem !important;
+  right: 1rem;
+}
 
 
 @media (max-width: 650px) {
@@ -254,7 +293,32 @@
   .PlayingFlipCardContainer {
     display: flex;
     flex-direction: column;
+    width: 100%;
+  }
+
+  .PlayingFlipCardButtons {
+    position: absolute !important;
+    bottom: 1rem !important;
     width: 90%;
+  }
+
+  .ICON {
+    position: absolute;
+    left: -.7rem;
+    bottom: -2rem;
+  }
+
+  .NextIcon {
+    position: absolute !important;
+    bottom: 1rem !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .NextIcon>button {
+    width: 70%;
   }
 
 }

@@ -8,7 +8,7 @@ import { MdModeEditOutline } from 'react-icons/md';
 import { MdDelete } from 'react-icons/md';
 import { MdPlayCircle } from 'react-icons/md';
 import { MdAddCircle } from 'react-icons/md';
-import { setCurrentCategory, setPlaying, setPLaying } from '../../store/actions/UserActions';
+import {  setPlaying } from '../../store/actions/UserActions';
 import EditModal from '../editModal/EditModal'
 import DeleteModal from '../deleteModal/DeleteModal'
 import AddCardModal from '../addCardModal/AddCardModal'
@@ -134,7 +134,7 @@ const Category = (props) => {
             </div>}
 
 
-           <Song Playing = {PLaying}/>
+            <Song Playing={PLaying} />
 
 
         </div>

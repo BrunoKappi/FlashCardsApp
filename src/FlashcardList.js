@@ -12,7 +12,7 @@ export default function FlashcardList({ flashcards }) {
 
         <div className='NoQuestionDescription'>
 
-          <p> <BiCategoryAlt /> Choose the desired category and the number of questions you want</p>
+          <p> <BiCategoryAlt /> Choose the category and the number of questions</p>
 
           <p> <FaSearch /> Each time you generate the questions, they will be different</p>
 

@@ -30,6 +30,7 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
       setPlayed(false)
       setTextAnswer('')
       setCorrectIndex(-1)
+      setFlip(false)
     }
 
   }, [CardToPlay]);
@@ -69,7 +70,8 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
   }
 
   const ToNextCardFunc = () => {
-    ToNextCard()
+    if (Played)
+      ToNextCard()
   }
 
 
@@ -87,6 +89,8 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
 
   const FlipTheCard = () => {
     if (Automatic === false)
+      setFlip(!flip)
+    else if (Automatic === true && Played)
       setFlip(!flip)
     else
       return
@@ -120,18 +124,27 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
         }
       }
     }
+    setFlip(true)
   }
 
   return (
     <div className='PlayingFlipCardContainer'>
+
+      {Played && flip && <span className='RoundMessage'>Answer</span>}
+      {Played && !flip && <span className='RoundMessage'>Question</span>}
       <div className={`PlayingFlipCard  ${flip ? 'PlayingFlipCardFlip' : ''}`} onClick={FlipTheCard} style={{ height: height }}>
+        {Round === 'Right' && flip && < div className='RoundIcon IconCorrect ICON REVERSE'><MdCheck /></div>}
+        {Round === 'Wrong' && flip && < div className='RoundIcon IconWrong ICON REVERSE'><MdClear /></div>}
+        {Round === 'Right' && !flip && < div className='RoundIcon IconCorrect ICON'><MdCheck /></div>}
+        {Round === 'Wrong' && !flip && < div className='RoundIcon IconWrong ICON'><MdClear /></div>}
         <div className='PlayingFlipCardFront' ref={FrontElement}>
           <div className='PlayingFlipCardQuestion'>
             <p>{Card.Question}</p>
           </div>
         </div>
         <div className="PlayingFlipCardBack" ref={BackElement}>{Card.Answer.Option}</div>
-      </div>
+
+      </div >
 
 
 
@@ -148,14 +161,12 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
               <p onClick={e => handleChangeCorrectOption(Option.Id)}>{Option.Option}</p>
             </div>
           })}
+
           <div className='PlayingFlipCardButtons'>
             {!Played && <button disabled={!Filled}>Check</button>}
-            <div className='RoundIconContainer'>
-              {Round === 'Right' && <div className='RoundIcon IconCorrect'><MdCheck /></div>}
-              {Round === 'Wrong' && <div className='RoundIcon IconWrong'><MdClear /></div>}
-            </div>
-            {Played && <span className='RoundMessage'>{Message}</span>}
-            <div className='RoundIconContainer'>
+
+            {Played && false && <span className='RoundMessage'>{Message}</span>}
+            <div className='RoundIconContainer NextCardButton'>
               {Round !== 'No' && <div className='NextIcon'>
                 <button onClick={ToNextCardFunc}>Next <MdNavigateNext /></button>
               </div>}
@@ -169,15 +180,12 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
         Card.Type === 'Text' &&
 
         <form className='PlayingFlipCardTextForm' onSubmit={handleCheckQuestion}>
-          {Round === 'No' && <input type="text" placeholder='Answer' value={TextAnswer} onChange={e => setTextAnswer(e.target.value)} />}
+          {Round === 'No' && <textarea type="text" placeholder='Answer' value={TextAnswer} onChange={e => setTextAnswer(e.target.value)} />}
           <div className='PlayingFlipCardButtons' >
             {!Played && <button disabled={!Filled}>Check</button>}
-            <div className='RoundIconContainer'>
-              {Round === 'Right' && <div className='RoundIcon IconCorrect'><MdCheck /></div>}
-              {Round === 'Wrong' && <div className='RoundIcon IconWrong'><MdClear /></div>}
-            </div>
-            {Played && <span className='RoundMessage'>{Message}</span>}
-            <div className='RoundIconContainer'>
+
+            {Played && false && <span className='RoundMessage'>{Message}</span>}
+            <div className='RoundIconContainer NextCardButton'>
               {Round !== 'No' && <div className='NextIcon'>
                 <button onClick={ToNextCardFunc}>Next <MdNavigateNext /></button>
               </div>}

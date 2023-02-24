@@ -82,7 +82,7 @@ export default function Playing(props) {
         <div className='PlayingContainer'>
 
             <PlayingHeader PlayingProgress={PlayingProgress} StopPlaying={StopPlaying} ToNextCard={ToNextCard} />
-            <PlayingBody Cards={Cards} CurrentCategory PlayingIndex={PlayingIndex} PlayingProgress={PlayingProgress} StopPlaying={StopPlaying} ToNextCard={ToNextCard} Automatic={true}/>
+            <PlayingBody Cards={Cards} CurrentCategory PlayingIndex={PlayingIndex} PlayingProgress={PlayingProgress} StopPlaying={StopPlaying} ToNextCard={ToNextCard} Automatic={true} />
 
         </div>
 
