@@ -1,0 +1,79 @@
+.Chosen {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: .2rem 1rem;
+    margin-bottom: 1rem;
+}
+
+
+.NotChosen {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    height: 70vh;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.LinkButton {
+    cursor: pointer;
+    border: none;
+    background-color: var(--yellow);
+    border-radius: 2rem;
+    padding: 1rem 3rem;
+    text-decoration: none;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    color: white;
+    text-align: center;
+}
+
+.LinkButton:hover {
+    background-color: var(--yellowBrither);
+}
+
+
+
+
+
+@media (max-width: 650px) {
+
+    .Buttons {
+        padding-top: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+    }
+
+    .NotChosen {
+        flex-direction: column;
+        height: 70vh;
+    }
+
+    .Chosen {
+        padding: .1rem 1rem;
+        margin-bottom: .3rem;
+    }
+
+    .LinkButton {
+        width: 70%;
+    }
+
+
+}

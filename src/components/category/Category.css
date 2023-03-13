@@ -1,0 +1,217 @@
+.SelectedCategoryContainer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: .4rem;
+}
+
+.SelectedCategoryCards {
+    height: 100px;
+    display: grid;
+    align-items: center;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+
+}
+
+.SelectedCategoryHeader {
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
+    flex-grow: 1;
+    width: 100%;
+
+}
+
+.SelectedCategoryName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.SelectedCategoryName>p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    font-family: var(--Fonte);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.SelectedCategoryBackButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.SelectedCategoryBackButton>svg {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 500;
+
+}
+
+.SelectedCategoryIcons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+
+}
+
+.SelectedCategoryIcons>svg {
+    color: white;
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+
+.SelectedCategoryButtons {
+    margin-right: 0;
+}
+
+
+.SelectedCategoryButtons>button {
+    cursor: pointer;
+    border: none;
+    background-color: var(--yellow);
+    border-radius: 2rem;
+    padding: .4rem 1.8rem;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+    font-size: .7rem;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, .3);
+}
+
+.SelectedCategoryButtons>button>svg {
+    font-size: 1.3rem;
+}
+
+.SelectedCategoryButtons>button:hover {
+    background-color: var(--yellowBrither);
+}
+
+
+.AddCardButton {
+    cursor: pointer;
+    border: none;
+    background-color: var(--yellow);
+    border-radius: 2rem;
+    padding: .4rem 1.8rem;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+    font-size: .7rem;
+    position: fixed;
+    right: 3rem;
+    bottom: 3rem;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, .3);
+}
+
+.AddCardButton>p {
+    margin: 0;
+    font-size: 1rem;
+    font-family: var(--Fonte);
+}
+
+.AddCardButton>svg {
+    font-size: 1rem;
+    font-family: var(--Fonte);
+}
+
+@media (max-width: 1100px) {
+    .SelectedCategoryHeader {
+        display: grid;
+        grid-template-columns: 10% 50% 40%;
+        align-items: center;
+        justify-content: flex-start;
+        padding: .3rem;
+    }
+}
+
+@media (max-width: 650px) {
+
+
+    .SelectedCategoryName>p {
+        font-size: 1rem;
+        font-weight: 500;
+    }
+
+    .SelectedCategoryButtons {
+        position: fixed;
+        bottom: 5.5rem;
+        right: 1rem;
+        margin: 0;
+        z-index: 3;
+    }
+
+    .AddCardButton {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1rem;
+        margin: 0;
+        padding: 1rem 2rem;
+        z-index: 3;
+        background-color: var(--blue);
+    }
+
+    .AddCardButton>p {
+        font-size: .7rem;
+
+    }
+
+    .SelectedCategoryButtons>button {
+        background-color: var(--blue);
+        padding: 1rem 2rem;
+        box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3);
+    }
+
+    .SelectedCategoryButtons>button:hover {
+        background-color: var(--blueBrither);
+    }
+
+    .SelectedCategoryButtons>button>svg {
+        font-size: 1rem;
+    }
+
+    .SelectedCategoryIcons>svg {
+        font-size: 1.2rem !important;
+    }
+
+    .SelectedCategoryBackButton>svg {
+        font-size: 1.2rem;
+    }
+
+    .SelectedCategoryIcons {
+        justify-content: flex-end;
+    }
+
+    .SelectedCategoryHeader {
+        display: grid;
+        grid-template-columns: 15% 60% 20%;
+        align-items: center;
+        justify-content: flex-start;
+        padding: .3rem;
+    }
+}

@@ -1,0 +1,54 @@
+.DeleteCategoryModalTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--Fonte);
+    font-size: 1.2rem;
+    color: white;
+    font-weight: 500;
+}
+
+
+
+.DeleteCategoryButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.DeleteCategoryButtons>button {
+    cursor: pointer;
+    border: none;
+    background-color: var(--blue);
+    border-radius: 2rem;
+    padding: .7rem 2rem;
+    text-decoration: none;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+}
+
+.DeleteCategoryButtons>button:hover {
+    background-color: var(--blueBrither);
+}
+
+
+@media (max-width: 650px) {
+    .DeleteCategoryModalTitle {       
+        font-size: 1rem;
+        color: white;
+        font-weight: 500;
+    }
+
+    .DeleteCategoryButtons>button{
+        font-size: .9rem;
+    }
+}

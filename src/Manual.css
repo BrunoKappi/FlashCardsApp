@@ -1,0 +1,323 @@
+.FlashCardsContainer {
+    padding: 1rem 2rem;
+}
+
+
+
+.Category {
+    background-color: white;
+    
+    padding-right: .2rem;    
+    border-radius: 0;
+    border-top-right-radius: .4rem;
+    border-bottom-right-radius: .4rem;
+    font-family: var(--Fonte);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: .6rem;
+    flex-grow: 1;
+}
+
+
+.CategoryContainer {
+    background-color: var(--yellow);
+    padding: 0;
+    border-radius: .4rem;
+    font-family: var(--Fonte);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: .6rem;
+
+}
+
+.CategoryLink{
+    font-family: var(--Fonte);
+    text-decoration: none;
+}
+
+
+.CategoryIcons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: .5rem;
+    margin-right: 1rem;
+
+}
+
+.CategoryIcon {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+}
+
+.CateoryNumber {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--yellow);
+    width: 3rem;
+    height: 100% !important;
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: white;
+}
+
+
+.CategoryIcons>svg {
+    color: rgb(185, 183, 183);
+    font-size: 1.2rem;
+
+}
+
+
+
+.CategoryName {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-grow: 1;
+    color: rgb(56, 56, 56);
+    width: 30rem;
+    padding: 1.6rem;
+}
+
+.CategoryName>p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+.ButtonsCategories {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-bottom: 2rem;
+}
+
+
+.ButtonsCategories>button {
+    cursor: pointer;
+    border: none;
+    background-color: var(--yellow);
+    border-radius: 2rem;
+    padding: .7rem 1.7rem;
+    text-decoration: none;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+    outline: none;
+}
+
+.ButtonsCategories>button:hover {
+    background-color: var(--yellowBrither);
+}
+
+
+
+
+
+
+
+
+
+/*  MODAL ADIÇÃO DE CATEGORIA  */
+
+/* blurred background modal for bootstrap v4 */
+.modal-open> :not(.modal) {
+    -webkit-filter: blur(50px);
+    -moz-filter: blur(50px);
+    -o-filter: blur(50px);
+    -ms-filter: blur(50px);
+    filter: blur(50px);
+}
+
+.AddCategoryModalBody {
+    padding: 1rem;
+}
+
+.AddCategoryModalTitle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--Fonte);
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 600;
+}
+
+.AddCategoryFormGroup {
+    margin-bottom: 1rem;
+}
+
+
+
+.AddCategoryFormGroup>input::placeholder {
+
+    color: rgb(84, 83, 83);
+}
+
+
+
+.AddCategoryFormGroup>input {
+    border-radius: .5rem;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    font-family: var(--Fonte);
+    outline: none;
+
+    color: rgb(84, 83, 83);
+}
+
+.AddCategoryFormGroup>select {
+    border-radius: .5rem;
+    border: none;
+    padding: 12px 20px;
+    width: 100%;
+    font-family: var(--Fonte);
+    outline: none;
+    color: rgb(84, 83, 83);
+}
+
+.modal-body {
+    background-color: var(--yellow);
+}
+
+.modal-content {
+    overflow: hidden;
+}
+
+.AddCategoryButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2.5rem;
+}
+
+.AddCategoryButtons>button {
+    cursor: pointer;
+    border: none;
+    background-color: var(--blue);
+    border-radius: 2rem;
+    padding: .7rem 2rem;
+    text-decoration: none;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+}
+
+.AddCategoryButtons>button:hover {
+    background-color: var(--blueBrither);
+}
+
+
+/*  MODAL ADIÇÃO DE CATEGORIA  */
+
+
+
+
+.NoCategories {
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
+.NoCategories>p {
+    font-family: var(--Fonte);
+    color: white;
+    font-size: 1.5rem;
+}
+
+
+
+@media (max-width: 650px) {
+
+    .CategoryIcons>svg {
+        font-size: 1rem;
+    }
+
+    .NoCategories>p {
+        font-family: var(--Fonte);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 500;
+    }
+
+    .AddCategoryModalBody {
+        padding: .3rem;
+        padding-bottom: 1rem !important;
+        padding-top: 3rem !important;
+    }
+
+    .modal-body {
+        padding: .5rem !important;
+    }
+
+    .Category {
+        font-size: .8rem;
+    }
+
+    .CateoryNumber {
+
+        width: 2rem;
+        min-width: 2rem !important;
+        font-size: .8rem;
+        font-weight: 500;
+
+    }
+
+
+    .ButtonsCategories {
+        position: fixed;
+        bottom: .5rem;
+        right: .7rem;
+        justify-content: center;
+
+    }
+
+    .ButtonsCategories>button {
+        font-size: .8rem;
+    }
+
+    .FlashCardsContainer {
+        height: 100vh;
+        padding: .6rem .7rem;
+    }
+
+    .CategoryName {
+
+        width: 10rem;
+    }
+
+
+}

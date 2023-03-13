@@ -1,0 +1,37 @@
+.SongSwitchButton {
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+
+.SongSwitchButton>svg {
+    color: black;
+    font-size: 1.2rem;
+}
+
+.SongContainer {
+    position: absolute;
+    bottom: .5rem;
+    left: .5rem;
+}
+
+
+
+@keyframes btn-pisca {
+    0% { opacity: 0; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+.SongSwitchButton { 
+  -webkit-animation: btn-pisca .9s linear infinite;
+  -moz-animation: btn-pisca .9s linear infinite;
+  -ms-animation: btn-pisca .9s linear infinite;
+  -o-animation: btn-pisca .9s linear infinite;
+  animation: btn-pisca .9s linear infinite;
+}
+
+
+
+@media (max-width: 650px) {
+    
+}
