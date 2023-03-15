@@ -8,7 +8,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 
 
 
-const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
+const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic, Jogada }) => {
 
   const [Card, setCard] = useState({ ...DefaultCard });
   const [OptionsSet, setOptionsSet] = useState([]);
@@ -70,8 +70,11 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
   }
 
   const ToNextCardFunc = () => {
-    if (Played)
+    if (Played) {
       ToNextCard()
+
+    }
+
   }
 
 
@@ -97,16 +100,20 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
   }
 
   const handleCheckQuestion = (e) => {
+
     e.preventDefault()
+    if (Played) return
     if (Card.Type === 'Text') {
       if (TextAnswer.trim().toLowerCase() == Card.Answer.Option.trim().toLowerCase()) {
         setPlayed(true)
         setMessage('Answer: ' + Card.Answer.Option)
         setRound('Right')
+        Jogada("Certo")
       } else {
         setPlayed(true)
         setMessage('Answer: ' + Card.Answer.Option)
         setRound('Wrong')
+        Jogada("Errado")
       }
       //console.log(TextAnswer, Card.Answer.Option)
     } else {
@@ -117,10 +124,12 @@ const FlipCard = ({ CardToPlay = {}, StopPlaying, ToNextCard, Automatic }) => {
           setPlayed(true)
           setMessage('Answer: ' + OptionsSet[CorrectIndex].Option)
           setRound('Right')
+          Jogada("Certo")
         } else {
           setPlayed(true)
           setMessage('Answer: ' + Card.Answer.Option)
           setRound('Wrong')
+          Jogada("Errado")
         }
       }
     }

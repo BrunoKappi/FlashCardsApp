@@ -146,11 +146,11 @@ const AddCardModal = (props) => {
                         <div className='AddModalCardRadios'>
                             <div className='AddModalCardRadio'>
                                 <input type="radio" id="TextOption" name="Text" value="Text" checked={CardType === 'Text'} onChange={handleChangeTypeOption} />
-                                <label for="TextOption">Text</label>
+                                <label htmlFor="TextOption">Text</label>
                             </div>
                             <div className='AddModalCardRadio'>
                                 <input type="radio" id="MultipleChoiceOption" name="MultipleChoice" value="MultipleChoice" checked={CardType === 'MultipleChoice'} onChange={handleChangeTypeOption} />
-                                <label for="MultipleChoiceOption">Multiple Choice</label>
+                                <label htmlFor="MultipleChoiceOption">Multiple Choice</label>
                             </div>
                         </div>
 
@@ -179,7 +179,7 @@ const AddCardModal = (props) => {
                                         </div>
                                         <div className='AddModalCardOptionCorret'>
                                             <input className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} type="checkbox" id={OP.Option} name="Corret" value={OP.Id} checked={OP.IsAnswer === true} onChange={handleChangeCorrectOption} />
-                                            <label className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} for={OP.Option}>Corret</label>
+                                            <label className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} htmlFor={OP.Option}>Corret</label>
                                         </div>
                                     </div>
                                 })}

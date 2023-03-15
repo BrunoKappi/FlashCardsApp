@@ -4,7 +4,7 @@ import './Automatic.css'
 import axios from 'axios'
 import { MdArrowBackIos } from 'react-icons/md';
 import { Link } from 'react-router-dom'
-import { setFunction } from './store/actions/UserActions';
+import { setFunction, setUser } from './store/actions/UserActions';
 import store from './store/store';
 import Playing from './components/playingAutomatic/Playing';
 import { setPlaying } from './store/actions/UserActions';
@@ -18,6 +18,8 @@ const Automatic = (props) => {
 
   const categoryEl = useRef()
   const amountEl = useRef()
+
+  const [CategoriaSelecionada, setCategoriaSelecionada] = useState({})
 
   useEffect(() => {
     axios
@@ -45,6 +47,7 @@ const Automatic = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault()
+    setCategoriaSelecionada(categories.find(C => C.id == categoryEl.current.value).name)
     axios
       .get('https://opentdb.com/api.php', {
         params: {
@@ -104,6 +107,15 @@ const Automatic = (props) => {
     setPLaying(false)
   }
 
+  const RecordPlay = (Play) => {
+    console.log("ROUND", CategoriaSelecionada)
+    var PlayEdited = { ...Play, Category: CategoriaSelecionada }
+    var EditedUser = { ...props.User }
+    EditedUser.Rounds.push(PlayEdited)
+    store.dispatch(setUser(EditedUser))
+  }
+
+
   return (
     <>
       {!PLaying &&
@@ -114,7 +126,7 @@ const Automatic = (props) => {
               <label htmlFor="category">Category</label>
               <select id="category" ref={categoryEl} >
                 {categories.map(category => {
-                  return <option value={category.id} key={category.id}>{category.name}</option>
+                  return <option id={category.name} value={category.id} key={category.id}>{category.name}</option>
                 })}
               </select>
             </div>
@@ -132,12 +144,12 @@ const Automatic = (props) => {
         {!PLaying && <FlashcardList flashcards={flashcards} />}
 
         {PLaying && <div className='AutomaticPlaying'>
-          <Playing FlashCards={flashcards} StopPlaying={handleStopPLaying} Automatic={true} />
+          <Playing RecordPlay={RecordPlay} FlashCards={flashcards} StopPlaying={handleStopPLaying} Automatic={true} />
         </div>
         }
       </div>
 
-      <Song Playing={PLaying} />
+
     </>
   );
 }

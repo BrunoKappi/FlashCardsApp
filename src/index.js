@@ -8,10 +8,10 @@ import { setCards } from './store/actions/CardsActions';
 
 if (localStorage.getItem('FlashCardsCategories')) {
   if (JSON.parse(localStorage.getItem('FlashCardsCategories')).length > 0) {
-    const CardsFromLocalstorage = JSON.parse(localStorage.getItem('FlashCardsCategories'))
+    const CardsFromLocalstorage = JSON.parse(localStorage.getItem('FlashCardsCategories')) 
     //console.log(CardsFromLocalstorage)
     store.dispatch(setCards(CardsFromLocalstorage))
-  } else {
+  } else { 
     store.dispatch(setCards([]))
   }
 

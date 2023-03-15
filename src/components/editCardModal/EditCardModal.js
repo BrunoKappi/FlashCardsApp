@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 import './EditCardModal.css'
 import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
-import { v4 as uuid_v4 } from "uuid"; 
+import { v4 as uuid_v4 } from "uuid";
 import { editCategory } from '../../store/actions/CardsActions';
 import { MdDelete } from 'react-icons/md';
 import store from '../../store/store';
-
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const EditCardModal = (props) => {
 
@@ -16,7 +16,7 @@ const EditCardModal = (props) => {
     const [Answer, setAnswer] = useState('');
     const [CurrentCategory, setCurrentCategory] = useState({});
     const [OptionsSet, setOptionsSet] = useState([]);
-    const [NewOption, setNewOption] = useState('');
+    const [NewOption, setNewOption] = useState(''); 
     const [CorrectIndex, setCorrectIndex] = useState(-1);
 
 
@@ -36,7 +36,7 @@ const EditCardModal = (props) => {
             //console.log(props.Categories.find((Card) => Card.Id.trim() === props.CategoryId))
         }
 
-    }, [props.CategoryId, props.Cards,props.Categories]);
+    }, [props.CategoryId, props.Cards, props.Categories]);
 
 
     function handleClose() {
@@ -144,11 +144,11 @@ const EditCardModal = (props) => {
                         <div className='EditModalCardRadios'>
                             <div className='EditModalCardRadio'>
                                 <input type="radio" id="TextOption" name="Text" value="Text" checked={CardType === 'Text'} onChange={handleChangeTypeOption} />
-                                <label for="TextOption">Text</label>
+                                <label htmlFor="TextOption">Text</label>
                             </div>
                             <div className='EditModalCardRadio'>
                                 <input type="radio" id="MultipleChoiceOption" name="MultipleChoice" value="MultipleChoice" checked={CardType === 'MultipleChoice'} onChange={handleChangeTypeOption} />
-                                <label for="MultipleChoiceOption">Multiple Choice</label>
+                                <label htmlFor="MultipleChoiceOption">Multiple Choice</label>
                             </div>
                         </div>
 
@@ -166,7 +166,10 @@ const EditCardModal = (props) => {
                                 {OptionsSet.length > 0 && <div className='EditModalCardOptionsTitle'>
                                     Options
                                 </div>}
+
+
                                 {OptionsSet.map((OP, Index) => {
+
                                     return <div key={uuid_v4()} className='EditModalCardOption'>
                                         <button onClick={e => handleDeleteOption(OP.Id)}>
                                             <MdDelete />
@@ -177,10 +180,18 @@ const EditCardModal = (props) => {
                                         </div>
                                         <div className='EditModalCardOptionCorret'>
                                             <input className={OP.IsAnswer === true ? 'EditModalCardCorrectOption' : ''} type="checkbox" id={OP.Option} name="Corret" value={OP.Id} checked={OP.IsAnswer === true} onChange={handleChangeCorrectOption} />
-                                            <label className={OP.IsAnswer === true ? 'EditModalCardCorrectOption' : ''} for={OP.Option}>Corret</label>
+                                            <label className={OP.IsAnswer === true ? 'EditModalCardCorrectOption' : ''} htmlFor={OP.Option}>Corret</label>
                                         </div>
                                     </div>
+
+
                                 })}
+
+
+
+
+
+
 
                                 {OptionsSet.length <= 9 &&
                                     <form className='EditModalCardAddOptionForm' onSubmit={handleAddOption}>
@@ -199,8 +210,8 @@ const EditCardModal = (props) => {
                         <button onClick={handleClose}>Cancel</button>
                         <button onClick={handleAddCard}>Save</button>
                     </div>
-                </Modal.Body>
-            </Modal>
+                </Modal.Body >
+            </Modal >
         </div >
     )
 }

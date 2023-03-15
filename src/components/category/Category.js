@@ -8,15 +8,16 @@ import { MdModeEditOutline } from 'react-icons/md';
 import { MdDelete } from 'react-icons/md';
 import { MdPlayCircle } from 'react-icons/md';
 import { MdAddCircle } from 'react-icons/md';
-import {  setPlaying } from '../../store/actions/UserActions';
+import { setPlaying } from '../../store/actions/UserActions';
 import EditModal from '../editModal/EditModal'
 import DeleteModal from '../deleteModal/DeleteModal'
 import AddCardModal from '../addCardModal/AddCardModal'
-
+import { setCurrentCategory as SetCurrentCategoryRedux } from '../../store/actions/UserActions';
+import { editCategory } from '../../store/actions/CardsActions';
 import FlipCard from '../flipCard/FlipCard'
 import { v4 as uuid_v4 } from "uuid";
 import Playing from '../playing/Playing';
-import Song from '../song/Song';
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const Category = (props) => {
 
@@ -27,17 +28,23 @@ const Category = (props) => {
     const [CategoryIdEdit, setCategoryIdEdit] = useState('');
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [CategoryIdDelete, setCategoryIdDelete] = useState('');
-
     const [showAddCardModal, setShowAddCardModal] = useState(false);
     const [CategoryIdAddCard, setCategoryIdAddCard] = useState('');
+
+
 
 
     useEffect(() => {
         if (!props.User.CurrentCategoryId) return
         setCurrentCategory(props.Cards.find((Card) => Card.Id.trim() === props.User.CurrentCategoryId))
-        //console.log(props.Cards.find((Card) => Card.Id.trim() === props.User.CurrentCategoryId))
+
 
     }, [props.User.CurrentCategoryId, props.Cards]);
+
+
+    useEffect(() => {
+        setPLaying(props.User.Playing)
+    }, [props.User.Playing]);
 
     function handleShowEditModal(Id) {
         setShowEditModal(true);
@@ -82,6 +89,15 @@ const Category = (props) => {
         setPLaying(false)
     }
 
+    const RecordPlay = (Play) => {
+        console.log(Play)
+
+        const EditedCategory = { ...CurrentCategory }
+        EditedCategory.Rounds.push(Play)
+        store.dispatch(editCategory(EditedCategory))
+        store.dispatch(SetCurrentCategoryRedux(EditedCategory))
+    }
+
     return (
         <div className='SelectedCategoryContainer'>
 
@@ -115,26 +131,61 @@ const Category = (props) => {
                     </div>
 
                 </div>
-                <div className='SelectedCategoryCards'>
-                    <button className="AddCardButton" onClick={e => handleShowAddCardModal(props.User.CurrentCategoryId)}>
-                        <MdAddCircle />
-                        <p>Add Card</p>
-                    </button>
-                    {props.Cards.find(Cat => Cat.Id === props.User.CurrentCategoryId).Cards.map(Card => {
-                        return <FlipCard key={uuid_v4()} Card={Card} CategoryId={props.User.CurrentCategoryId} />
-                    })}
-                </div>
+
+
+
+
+                <Droppable droppableId={'CardsDaCategoria'} key={'CardsDaCategoria'} index={3}>
+                    {(provided, snapshot) => {
+                        return (
+
+                            <div {...provided.droppableProps} ref={provided.innerRef} className='SelectedCategoryCards'>
+                                <button className="AddCardButton" onClick={e => handleShowAddCardModal(props.User.CurrentCategoryId)}>
+                                    <MdAddCircle />
+                                    <p>Add Card</p>
+                                </button>
+                                {props.Cards.find((Cat) => Cat.Id === props.User.CurrentCategoryId).Cards.map((Card, index) => {
+
+                                    return <Draggable key={Card.Id} draggableId={Card.Id} index={index} >
+
+                                        {(provided, snapshot) => {
+
+                                            return (
+
+                                                <div ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps} >
+                                                    <FlipCard key={uuid_v4()} Card={Card} CategoryId={props.User.CurrentCategoryId} />
+                                                </div>
+
+                                            )
+                                        }}
+
+                                    </Draggable>
+
+                                })}
+                            </div>
+
+                        );
+                    }}
+                </Droppable>
+
+
+
+
+
+
+
+
 
             </div>}
 
             {PLaying && <div className='SelectedCategoryPlaying'>
 
-                <Playing CurrentCategoryId={props.User.CurrentCategoryId} Categories={props.Cards} StopPlaying={handleStopPLaying} />
+                <Playing RecordPlay={RecordPlay} CurrentCategoryId={props.User.CurrentCategoryId} Categories={props.Cards} StopPlaying={handleStopPLaying} />
 
             </div>}
 
 
-            <Song Playing={PLaying} />
+
 
 
         </div>

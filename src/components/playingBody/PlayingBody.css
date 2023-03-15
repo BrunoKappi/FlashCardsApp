@@ -41,15 +41,15 @@
 }
 
 
-.PlayingHeaderProgressBar{   
+.PlayingHeaderProgressBar {
     flex-grow: 1;
     height: 2rem;
-   
+
     width: 100%;
     background-color: aqua;
 }
 
-.PlayingBody{
+.PlayingBody {
     width: 100%;
     display: flex;
     align-items: center;
@@ -57,9 +57,33 @@
 }
 
 
+.FinishButton {
+
+    cursor: pointer;
+    border: none;
+    background-color: var(--yellow);
+    border-radius: 2rem;
+    padding: .4rem 3rem;
+    text-decoration: none;
+    font-family: var(--Fonte);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: .4rem;
+    font-size: 1rem;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, .3);
+    margin-top: 2rem;
+}
 
 
-.RoundComplete{
+
+.RoundComplete {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-family: var(--Fonte);
     color: white;
 }

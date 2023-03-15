@@ -36,6 +36,12 @@
 
 }
 
+.CategoryLink{
+    font-family: var(--Fonte);
+    text-decoration: none;
+}
+
+
 .CategoryIcons {
     display: flex;
     flex-direction: row;

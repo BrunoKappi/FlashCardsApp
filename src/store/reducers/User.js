@@ -6,7 +6,8 @@ const UserDefault = {
     CurrentTab: 'Home',
     CurrentCategory: 'No',
     CurrentCategoryId: '',
-    Playing: false
+    Playing: false,
+    Rounds: []
 }
 
 const User = (state = UserDefault, action) => {

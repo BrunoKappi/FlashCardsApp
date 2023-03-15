@@ -8,7 +8,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Layout from './Layout';
 import { Provider } from 'react-redux'
 import { setFunction } from './store/actions/UserActions';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { DragDropContext } from "react-beautiful-dnd";
 
 function App() {
 
@@ -23,20 +24,20 @@ function App() {
 
 
   return (
-    <>
+    <DragDropContext onDragEnd={(result) => { console.log(result) }}> 
       <Router>
         <Provider store={store}>
           <Routes>
             <Route path="/" element={<Layout />} >
               <Route path="/Trivia" element={<Automatic />} />
-              <Route path="/FlashCards/" element={<Manual />} />
               <Route path="/FlashCards/:ID" element={<Manual />} />
+              <Route path="/FlashCards" element={<Manual />} />
             </Route>
           </Routes>
         </Provider>
       </Router>
 
-    </>
+    </DragDropContext>
   );
 }
 
