@@ -17,6 +17,7 @@ import DeleteModal from './components/deleteModal/DeleteModal'
 import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
+import Teste from './Teste'
 
 const Manual = (props) => {
 
@@ -147,6 +148,7 @@ const Manual = (props) => {
                   <button onClick={AddCategory}>Add</button>
                 </div>
               </div>
+              
             </Modal.Body>
           </Modal>
 

@@ -168,7 +168,7 @@ const EditCardModal = (props) => {
                                 </div>}
 
 
-                                {OptionsSet.map((OP, Index) => {
+                                {OptionsSet.map((OP, Index) => { 
 
                                     return <div key={uuid_v4()} className='EditModalCardOption'>
                                         <button onClick={e => handleDeleteOption(OP.Id)}>
@@ -186,6 +186,8 @@ const EditCardModal = (props) => {
 
 
                                 })}
+
+
 
 
 

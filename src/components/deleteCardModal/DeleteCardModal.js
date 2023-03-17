@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
 import store from '../../store/store';
 import { editCategory } from '../../store/actions/CardsActions';
+import Teste from '../../Teste';
 
 const DeleteCardModal = (props) => {
 
@@ -12,7 +13,7 @@ const DeleteCardModal = (props) => {
     useEffect(() => {
         if (props.CategoryId)
             setCurrentCategory(props.Categories.find((Card) => Card.Id.trim() === props.CategoryId))
-    }, [props.CategoryId,props.Categories]);
+    }, [props.CategoryId, props.Categories]);
 
     function handleClose() {
         props.CloseDeleteModal()
@@ -24,7 +25,7 @@ const DeleteCardModal = (props) => {
 
     const DeleteCard = (e) => {
         var NewCategory = { ...CurrentCategory }
-        NewCategory.Cards = NewCategory.Cards.filter(C => C.Id !== props.Card.Id)       
+        NewCategory.Cards = NewCategory.Cards.filter(C => C.Id !== props.Card.Id)
         store.dispatch(editCategory(NewCategory))
         //console.log(NewCategory)
         handleClose()

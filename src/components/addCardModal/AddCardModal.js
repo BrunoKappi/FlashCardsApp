@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import './AddCardModal.css'
 import { connect } from 'react-redux'
 import Modal from 'react-bootstrap/Modal';
-import { v4 as uuid_v4 } from "uuid"; 
+import { v4 as uuid_v4 } from "uuid";
 import { editCategory } from '../../store/actions/CardsActions';
 import { MdDelete } from 'react-icons/md';
 import store from '../../store/store';
-
+import Teste from '../../Teste';
+import { Draggable, Droppable } from "react-beautiful-dnd";
 
 const AddCardModal = (props) => {
 
@@ -24,7 +25,7 @@ const AddCardModal = (props) => {
         if (props.CategoryId)
             setCurrentCategory(props.Categories.find((Card) => Card.Id.trim() === props.CategoryId))
 
-    }, [props.CategoryId, props.Cards,props.Categories]);
+    }, [props.CategoryId, props.Cards, props.Categories]);
 
 
     function handleClose() {
@@ -168,21 +169,45 @@ const AddCardModal = (props) => {
                                 {OptionsSet.length > 0 && <div className='AddModalCardOptionsTitle'>
                                     Options
                                 </div>}
-                                {OptionsSet.map((OP, Index) => {
-                                    return <div key={uuid_v4()} className='AddModalCardOption'>
-                                        <button onClick={e => handleDeleteOption(OP.Id)}>
-                                            <MdDelete />
-                                        </button>
-                                        <div className='AddModalCardOptionDot'></div>
-                                        <div className='AddModalCardOptionName'>
-                                            <p>{OP.Option}</p>
-                                        </div>
-                                        <div className='AddModalCardOptionCorret'>
-                                            <input className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} type="checkbox" id={OP.Option} name="Corret" value={OP.Id} checked={OP.IsAnswer === true} onChange={handleChangeCorrectOption} />
-                                            <label className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} htmlFor={OP.Option}>Corret</label>
-                                        </div>
-                                    </div>
-                                })}
+
+
+                                <Droppable droppableId={'AddCardModalDropable'} key={'AddCardModalDropable'}  >
+                                    {(AddCardProvided) => {
+                                        return (
+                                            <div {...AddCardProvided.droppableProps} ref={AddCardProvided.innerRef}>
+
+                                                {OptionsSet.map((OP, OptionID) => {
+                                                    return <Draggable key={uuid_v4()} draggableId={OP.Option + OptionID} index={OptionID} >
+                                                        {(DragProvided) => {
+                                                            return (
+                                                                <div ref={DragProvided.innerRef} {...DragProvided.draggableProps} {...DragProvided.dragHandleProps} >
+                                                                    <div key={uuid_v4()} className='AddModalCardOption'>
+                                                                        <button onClick={e => handleDeleteOption(OP.Id)}>
+                                                                            <MdDelete />
+                                                                        </button>
+                                                                        <div className='AddModalCardOptionDot'></div>
+                                                                        <div className='AddModalCardOptionName'>
+                                                                            <p>{OP.Option}</p>
+                                                                        </div>
+                                                                        <div className='AddModalCardOptionCorret'>
+                                                                            <input className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} type="checkbox" id={OP.Option} name="Corret" value={OP.Id} checked={OP.IsAnswer === true} onChange={handleChangeCorrectOption} />
+                                                                            <label className={OP.IsAnswer === true ? 'AddModalCardCorrectOption' : ''} htmlFor={OP.Option}>Corret</label>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            )
+                                                        }}
+                                                    </Draggable>
+                                                })}
+
+
+
+                                            </div>
+                                        );
+                                    }}
+                                </Droppable>
+
+
 
                                 {OptionsSet.length <= 9 &&
                                     <form className='AddModalCardAddOptionForm' onSubmit={handleAddOption}>

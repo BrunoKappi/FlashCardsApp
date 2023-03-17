@@ -7,3 +7,16 @@
   --blueBrither: #5f88cb;
   --Fonte: 'Kanit', 'Sans Serif';
 }
+
+
+
+.OBJ {
+  padding: 2rem;
+  background-color: aliceblue;
+  margin: 1rem;
+}
+
+.OBJ2 {
+  background-color: #E4A11B;
+  margin: .3rem;
+}

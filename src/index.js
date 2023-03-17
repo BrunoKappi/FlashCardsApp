@@ -4,14 +4,16 @@ import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import store from './store/store';
 import { setCards } from './store/actions/CardsActions';
+import Teste from './Teste';
+import { DragDropContext } from "react-beautiful-dnd";
 
 
 if (localStorage.getItem('FlashCardsCategories')) {
   if (JSON.parse(localStorage.getItem('FlashCardsCategories')).length > 0) {
-    const CardsFromLocalstorage = JSON.parse(localStorage.getItem('FlashCardsCategories')) 
+    const CardsFromLocalstorage = JSON.parse(localStorage.getItem('FlashCardsCategories'))
     //console.log(CardsFromLocalstorage)
     store.dispatch(setCards(CardsFromLocalstorage))
-  } else { 
+  } else {
     store.dispatch(setCards([]))
   }
 
@@ -27,9 +29,9 @@ if (localStorage.getItem('FlashCardsCategories')) {
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 root.render(
-  <React.StrictMode>
+  <DragDropContext onDragEnd={(result) => { console.log(result) }}>
     <App />
-  </React.StrictMode>
+  </DragDropContext>
 );
 
 

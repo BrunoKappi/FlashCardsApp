@@ -9,7 +9,7 @@ import Layout from './Layout';
 import { Provider } from 'react-redux'
 import { setFunction } from './store/actions/UserActions';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { DragDropContext } from "react-beautiful-dnd";
+import { DragDropContext } from "react-beautiful-dnd"; 
 
 function App() {
 
