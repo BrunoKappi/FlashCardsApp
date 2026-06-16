@@ -1,52 +1,61 @@
 {
-  "name": "flashcard-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "ansi-regex": "^6.0.1",
-    "apexcharts": "^3.37.1",
-    "axios": "^0.19.2",
-    "bootstrap": "^5.2.3",
-    "react": "^18.2.0",
-    "react-apexcharts": "^1.4.0",
-    "react-beautiful-dnd": "^13.1.1",
-    "react-bootstrap": "^2.7.2",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.7.1",
-    "react-redux": "^8.0.5",
-    "react-router-dom": "^6.8.1",
-    "react-scripts": "3.4.1",
-    "react-select": "^5.7.0",
-    "redux": "^4.2.1",
-    "uuid": "^9.0.0",
-    "uuidv4": "^6.2.13"
-  },
-  "scripts": {
-    "start": "set \"NODE_OPTIONS=--openssl-legacy-provider\" && react-scripts start",
-    "build": "set \"NODE_OPTIONS=--openssl-legacy-provider\" && react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@types/react": "^18.3.23",
-    "@types/react-dom": "^18.3.7"
-  }
+    "name": "flashcard-app",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "dependencies": {
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.5.0",
+        "@testing-library/user-event": "^7.2.1",
+        "ansi-regex": "^6.0.1",
+        "apexcharts": "^3.37.1",
+        "axios": "^0.19.2",
+        "bootstrap": "^5.2.3",
+        "react": "^18.2.0",
+        "react-apexcharts": "^1.4.0",
+        "react-beautiful-dnd": "^13.1.1",
+        "react-bootstrap": "^2.7.2",
+        "react-dom": "^18.2.0",
+        "react-icons": "^4.7.1",
+        "react-redux": "^8.0.5",
+        "react-router-dom": "^6.8.1",
+        "react-select": "^5.7.0",
+        "redux": "^4.2.1",
+        "uuid": "^9.0.0",
+        "uuidv4": "^6.2.13"
+    },
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "build:cloudflare": "node scripts/remove-redirects.js && tsc && vite build",
+        "preview": "vite preview"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@tailwindcss/postcss": "^4.3.1",
+        "@tailwindcss/vite": "^4.3.1",
+        "@types/react": "^18.3.31",
+        "@types/react-beautiful-dnd": "^13.1.8",
+        "@types/react-dom": "^18.3.7",
+        "@vitejs/plugin-react": "^6.0.2",
+        "autoprefixer": "^10.5.0",
+        "postcss": "^8.5.15",
+        "tailwindcss": "^4.3.1",
+        "typescript": "^6.0.3",
+        "vite": "^8.0.16"
+    }
 }
