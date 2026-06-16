@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import PlayingHeader from '../playingHeader/PlayingHeader';
 import PlayingBody from '../playingBody/PlayingBody';
 import { v4 as uuid_v4 } from 'uuid';
-import { Card, Option } from '../../store/types';
+import { Card, Option } from '../../services/db';
 
 interface RawFlashCard {
     question: string;
@@ -51,10 +51,19 @@ export default function PlayingAutomatic({ FlashCards, RecordPlay, StopPlaying }
 
             return {
                 Id: uuid_v4(),
+                DeckId: 'trivia',
                 Type: 'MultipleChoice',
                 Question: raw.question,
                 Answer: answerObj,
-                Options: formattedOptions
+                Options: formattedOptions,
+                Interval: 0,
+                EaseFactor: 2.5,
+                Repetitions: 0,
+                NextReview: Date.now(),
+                CorrectCount: 0,
+                WrongCount: 0,
+                Favorite: false,
+                CreatedAt: Date.now()
             };
         });
 

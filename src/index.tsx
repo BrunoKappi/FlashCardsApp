@@ -1,31 +1,36 @@
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import './index.css';
-import store from './store/store';
-import { setCards } from './store/actions/CardsActions';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { migrateLocalStorageToDexie } from './services/migrate';
+import { useStore } from './store/useStore';
 
-const localCategories = localStorage.getItem('FlashCardsCategories');
-if (localCategories) {
-  try {
-    const parsed = JSON.parse(localCategories);
-    if (Array.isArray(parsed) && parsed.length > 0) {
-      store.dispatch(setCards(parsed));
-    } else {
-      store.dispatch(setCards([]));
-    }
-  } catch (e) {
-    store.dispatch(setCards([]));
+// Inicia migração local
+migrateLocalStorageToDexie().then(() => {
+  useStore.getState().syncFromDB();
+});
+
+const handleDragEnd = (result: any) => {
+  const { destination, source } = result;
+  if (!destination) return;
+  if (destination.index === source.index) return;
+
+  const state = useStore.getState();
+
+  // Reordenação de decks (categorias) na tela principal
+  if (source.droppableId === 'ListaCategorias') {
+    const items = [...state.decks];
+    const [reorderedItem] = items.splice(source.index, 1);
+    items.splice(destination.index, 0, reorderedItem);
+    state.reorderDecks(items);
   }
-} else {
-  store.dispatch(setCards([]));
-}
+};
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
-    <DragDropContext onDragEnd={(result: any) => { console.log(result); }}>
+    <DragDropContext onDragEnd={handleDragEnd}>
       <App />
     </DragDropContext>
   );

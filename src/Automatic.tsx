@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { MdArrowBackIos as BackIcon } from 'react-icons/md';
 import FlashcardList from './FlashcardList';
 import Playing from './components/playingAutomatic/Playing';
-import { setFunction, setUser, setPlaying, setCurrentCategory } from './store/actions/UserActions';
-import { RootState } from './store/store';
+import { useStore } from './store/useStore';
 import { useApp } from './contexts/AppContext';
 
 interface TriviaCategory {
@@ -15,8 +13,8 @@ interface TriviaCategory {
 }
 
 const Automatic: React.FC = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.User);
+  const navigate = useNavigate();
+  const { playing, setPlaying, setCurrentDeckId, addXP, addStudyRound } = useStore();
   const { t } = useApp();
 
   const [flashcards, setFlashcards] = useState<any[]>([]);
@@ -51,10 +49,12 @@ const Automatic: React.FC = () => {
   const amountEl = useRef<HTMLInputElement>(null);
 
   const [selectedCategoryName, setSelectedCategoryName] = useState('');
-  const [isPlayingState, setIsPlayingState] = useState(false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    // Ao montar a página de Trivia, definimos o deck ID atual como 'trivia'
+    setCurrentDeckId('trivia');
+    
     axios
       .get('https://opentdb.com/api_category.php')
       .then((res) => {
@@ -63,11 +63,13 @@ const Automatic: React.FC = () => {
         }
       })
       .catch((err) => console.log('Failed to fetch categories:', err));
-  }, []);
 
-  useEffect(() => {
-    setIsPlayingState(user.Playing);
-  }, [user.Playing]);
+    return () => {
+      // Ao sair, limpamos o ID
+      setCurrentDeckId(null);
+      setPlaying(false);
+    };
+  }, [setCurrentDeckId, setPlaying]);
 
   const decodeString = (str: string) => {
     const textArea = document.createElement('textarea');
@@ -93,13 +95,13 @@ const Automatic: React.FC = () => {
         }
       })
       .then((res) => {
-        dispatch(setCurrentCategory({ Name: 'CardsFilled', Id: '1' }));
         const formatted = (res.data.results || []).map((questionItem: any, index: number) => {
           const answer = decodeString(questionItem.correct_answer);
           const options = [
             ...questionItem.incorrect_answers.map((a: string) => decodeString(a)),
             answer
           ];
+
           return {
             id: `${index}-${Date.now()}`,
             question: decodeString(questionItem.question),
@@ -116,29 +118,39 @@ const Automatic: React.FC = () => {
       });
   };
 
-  const handleSetFunction = (func: 'No' | 'Trivia' | 'FlashCards') => {
-    dispatch(setFunction(func));
-  };
-
   const handleStopPlaying = () => {
-    dispatch(setPlaying(false));
-    setIsPlayingState(false);
+    setPlaying(false);
   };
 
   const RecordPlay = (play: any) => {
-    const playEdited = { ...play, Category: selectedCategoryName };
-    const editedUser = { ...user, Rounds: [...user.Rounds, playEdited] };
-    dispatch(setUser(editedUser));
+    // Registra a rodada
+    addStudyRound({
+      deckId: 'trivia',
+      deckName: selectedCategoryName || 'Trivia',
+      cards: []
+    });
+    
+    // Concede XP adicional por concluir Trivia
+    addXP(play.Acertos * 10 + 5);
+  };
+
+  const handleBack = () => {
+    setCurrentDeckId(null);
+    setPlaying(false);
+    navigate('/');
   };
 
   return (
     <div className="w-full flex flex-col">
-      {!isPlayingState && (
-        <div className="w-full bg-card border border-border rounded-2xl p-6 shadow-sm mb-6 transition-all duration-300">
+      {!playing && (
+        <div className="w-full bg-card border border-border rounded-2xl p-6 shadow-premium mb-6 transition-all duration-300">
           <div className="flex items-center gap-3 mb-6">
-            <Link className="inline-flex items-center justify-center p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors" onClick={() => handleSetFunction('No')} to="/">
+            <button 
+              className="inline-flex items-center justify-center p-2 rounded-lg hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors border-none bg-transparent cursor-pointer" 
+              onClick={handleBack}
+            >
               <BackIcon className="text-base font-medium translate-x-[3px]" />
-            </Link>
+            </button>
             <h1 className="text-2xl font-bold tracking-tight text-foreground">
               {t('triviaGame')}
             </h1>
@@ -150,7 +162,7 @@ const Automatic: React.FC = () => {
               <select 
                 id="category" 
                 ref={categoryEl} 
-                className="w-full bg-background border border-border rounded-lg p-2.5 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm font-semibold"
+                className="w-full bg-background border border-border rounded-lg p-2.5 text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 text-sm font-semibold cursor-pointer"
               >
                 {categories.map((category) => (
                   <option value={category.id} key={category.id} className="text-foreground bg-card">
@@ -174,7 +186,7 @@ const Automatic: React.FC = () => {
               />
             </div>
 
-            <button type="submit" disabled={loading} className="w-full cursor-pointer bg-primary hover:bg-primary/95 disabled:bg-muted disabled:text-muted-foreground font-bold rounded-lg py-2.5 px-6 shadow transition-colors text-sm h-[42px] flex items-center justify-center border-none disabled:cursor-not-allowed">
+            <button type="submit" disabled={loading} className="w-full cursor-pointer bg-primary hover:bg-primary/95 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-bold rounded-lg py-2.5 px-6 shadow transition-colors text-sm h-[42px] flex items-center justify-center border-none disabled:cursor-not-allowed">
               {loading ? (
                 <div className="flex items-center gap-2">
                   <div className="w-4 h-4 border-2 border-primary-foreground border-t-transparent rounded-full animate-spin" />
@@ -188,16 +200,16 @@ const Automatic: React.FC = () => {
       )}
 
       {loading && (
-        <div className="flex flex-col items-center justify-center py-20 px-4 border border-dashed border-border rounded-2xl bg-card/50">
+        <div className="flex flex-col items-center justify-center py-20 px-4 border border-dashed border-border rounded-2xl bg-card">
           <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4" />
           <p className="text-muted-foreground text-sm font-semibold animate-pulse">{t('loading')}</p>
         </div>
       )}
 
       <div className="w-full mt-4">
-        {!isPlayingState && !loading && <FlashcardList flashcards={flashcards} />}
+        {!playing && !loading && <FlashcardList flashcards={flashcards} />}
 
-        {isPlayingState && (
+        {playing && (
           <div className="w-full">
             <Playing RecordPlay={RecordPlay} FlashCards={flashcards} StopPlaying={handleStopPlaying} />
           </div>

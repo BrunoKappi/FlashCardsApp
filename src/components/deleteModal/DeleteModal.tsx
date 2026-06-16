@@ -1,9 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { deleteCategory } from '../../store/actions/CardsActions';
-import { setCurrentCategory as SetCurrentCategoryRedux } from '../../store/actions/UserActions';
-import { RootState } from '../../store/store';
-import { Category } from '../../store/types';
+import React from 'react';
+import { useStore } from '../../store/useStore';
 import { useApp } from '../../contexts/AppContext';
 
 interface DeleteModalProps {
@@ -13,20 +9,8 @@ interface DeleteModalProps {
 }
 
 const DeleteModal: React.FC<DeleteModalProps> = ({ ShowDelete, CloseDeleteModal, CategoryId }) => {
-    const dispatch = useDispatch();
-    const categories = useSelector((state: RootState) => state.Cards);
-    const user = useSelector((state: RootState) => state.User);
+    const { deleteDeck, setCurrentDeckId } = useStore();
     const { t } = useApp();
-    const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
-
-    useEffect(() => {
-        if (CategoryId) {
-            const found = categories.find((c: Category) => c.Id.trim() === CategoryId);
-            if (found) {
-                setCurrentCategory(found);
-            }
-        }
-    }, [CategoryId, categories]);
 
     if (!ShowDelete) return null;
 
@@ -34,15 +18,10 @@ const DeleteModal: React.FC<DeleteModalProps> = ({ ShowDelete, CloseDeleteModal,
         CloseDeleteModal();
     };
 
-    const handleDelete = (e: React.MouseEvent) => {
+    const handleDelete = async (e: React.MouseEvent) => {
         e.preventDefault();
-        if (!currentCategory) return;
-        
-        dispatch(deleteCategory(currentCategory));
-        
-        if (user.CurrentCategory === currentCategory.Name) {
-            dispatch(SetCurrentCategoryRedux({ Name: 'No', Id: '' }));
-        }
+        await deleteDeck(CategoryId);
+        setCurrentDeckId(null);
         handleClose();
     };
 

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { v4 as uuid_v4 } from 'uuid';
-import { editCategory } from '../../store/actions/CardsActions';
+import React, { useState } from 'react';
+import { useStore } from '../../store/useStore';
 import { MdDelete as DeleteIcon } from 'react-icons/md';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
-import { RootState } from '../../store/store';
-import { Option, Card, Category } from '../../store/types';
+import { Option } from '../../services/db';
 import { useApp } from '../../contexts/AppContext';
+import { v4 as uuid_v4 } from 'uuid';
 
 interface AddCardModalProps {
     ShowAddCardModal: boolean;
@@ -15,32 +13,22 @@ interface AddCardModalProps {
 }
 
 const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddCardModal, CategoryId }) => {
-    const dispatch = useDispatch();
-    const categories = useSelector((state: RootState) => state.Cards);
+    const { addCard } = useStore();
     const { t } = useApp();
 
     const [cardType, setCardType] = useState<'Text' | 'MultipleChoice'>('Text');
     const [errorMessage, setErrorMessage] = useState('');
     const [question, setQuestion] = useState('');
     const [answer, setAnswer] = useState('');
-    const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
     const [optionsSet, setOptionsSet] = useState<Option[]>([]);
     const [newOption, setNewOption] = useState('');
     const [correctIndex, setCorrectIndex] = useState<number>(-1);
-
-    useEffect(() => {
-        if (CategoryId) {
-            const found = categories.find((c: Category) => c.Id.trim() === CategoryId);
-            if (found) {
-                setCurrentCategory(found);
-            }
-        }
-    }, [CategoryId, categories]);
 
     if (!ShowAddCardModal) return null;
 
     const handleClose = () => {
         CloseAddCardModal();
+        handleClearAll();
     };
 
     const handleChangeTypeOption = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,8 +36,8 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
     };
 
     const handleChangeCorrectOption = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const optionId = Number(event.target.value);
-        const optionIndex = optionsSet.findIndex(op => op.Id === optionId);
+        const optionId = event.target.value;
+        const optionIndex = optionsSet.findIndex(op => op.Id.toString() === optionId.toString());
         
         const newOptions = optionsSet.map((op, idx) => ({
             ...op,
@@ -66,10 +54,10 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
 
     const handleAddOption = (e: React.FormEvent) => {
         e.preventDefault();
-        if (newOption) {
+        if (newOption.trim()) {
             const newOptionObject: Option = {
-                Id: optionsSet.length + 1,
-                Option: capitalizeFirstLetter(newOption),
+                Id: uuid_v4(),
+                Option: capitalizeFirstLetter(newOption.trim()),
                 IsAnswer: false
             };
             setOptionsSet([...optionsSet, newOptionObject]);
@@ -79,11 +67,7 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
 
     const handleDeleteOption = (optionId: number | string) => {
         const filtered = optionsSet.filter(op => op.Id !== optionId);
-        const reindexed = filtered.map((op, idx) => ({
-            ...op,
-            Id: idx + 1
-        }));
-        setOptionsSet(reindexed);
+        setOptionsSet(filtered);
         setCorrectIndex(-1);
     };
 
@@ -97,14 +81,16 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
         setCorrectIndex(-1);
     };
 
-    const handleAddCard = () => {
-        if (optionsSet.length === 0 && cardType === 'MultipleChoice') {
-            setErrorMessage('You need at least one option');
-            return;
-        }
-        if (correctIndex === -1 && cardType === 'MultipleChoice') {
-            setErrorMessage('You need to choose the correct option');
-            return;
+    const handleAddCardSubmit = async () => {
+        if (cardType === 'MultipleChoice') {
+            if (optionsSet.length === 0) {
+                setErrorMessage('You need at least one option');
+                return;
+            }
+            if (correctIndex === -1) {
+                setErrorMessage('You need to choose the correct option');
+                return;
+            }
         }
         if (!question.trim()) {
             setErrorMessage('You need to fill the question');
@@ -115,36 +101,18 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
             return;
         }
 
-        if (!currentCategory) return;
-
-        let newCard: Card;
-
-        if (cardType === 'MultipleChoice') {
-            newCard = {
-                Id: uuid_v4(),
-                Type: cardType,
-                Question: question,
-                Answer: optionsSet[correctIndex],
-                Options: [...optionsSet]
-            };
-        } else {
-            newCard = {
-                Id: uuid_v4(),
-                Type: cardType,
-                Question: question,
-                Answer: { Id: 1, Option: answer, IsAnswer: true },
-                Options: []
-            };
+        try {
+            await addCard(
+                CategoryId, 
+                question.trim(), 
+                cardType === 'Text' ? answer.trim() : optionsSet[correctIndex].Option, 
+                cardType, 
+                optionsSet
+            );
+            handleClose();
+        } catch (err) {
+            setErrorMessage('Failed to add card: ' + String(err));
         }
-
-        const updatedCategory = {
-            ...currentCategory,
-            Cards: [...currentCategory.Cards, newCard]
-        };
-
-        dispatch(editCategory(updatedCategory));
-        handleClose();
-        handleClearAll();
     };
 
     return (
@@ -157,7 +125,7 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
                         className="text-muted-foreground hover:text-foreground transition-colors text-2xl font-bold border-none bg-transparent cursor-pointer"
                     >
                         &times;
-                    </button>
+                  </button>
                 </div>
 
                 <div className="p-6 overflow-y-auto flex-grow space-y-6">
@@ -227,7 +195,7 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
                             <div className="space-y-2">
                                 <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider block">{t('options')}</label>
                                 
-                                <Droppable droppableId="AddCardModalDropable" key="AddCardModalDropable">
+                                <Droppable droppableId="AddCardModalDroppable" key="AddCardModalDroppable">
                                     {(provided: any) => (
                                         <div 
                                             {...provided.droppableProps} 
@@ -258,7 +226,7 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
                                                                 <input 
                                                                     type="checkbox" 
                                                                     name="Correct" 
-                                                                    value={op.Id} 
+                                                                    value={op.Id.toString()} 
                                                                     checked={op.IsAnswer} 
                                                                     onChange={handleChangeCorrectOption}
                                                                     className="accent-green-500 h-3.5 w-3.5 rounded"
@@ -275,21 +243,29 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
                                 </Droppable>
 
                                 {optionsSet.length < 10 && (
-                                    <form className="flex gap-2 mt-2" onSubmit={handleAddOption}>
+                                    <div className="flex gap-2 mt-2">
                                         <input 
                                             type="text" 
                                             value={newOption} 
                                             onChange={e => setNewOption(e.target.value)} 
                                             placeholder={t('enterOption')}
+                                            onKeyDown={(e) => {
+                                                if (e.key === 'Enter') {
+                                                    e.preventDefault();
+                                                    const mockFormEvent = { preventDefault: () => {} } as React.FormEvent;
+                                                    handleAddOption(mockFormEvent);
+                                                }
+                                            }}
                                             className="flex-grow bg-background border border-border rounded-lg px-3 py-2 text-sm text-foreground placeholder-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary"
                                         />
                                         <button 
-                                            type="submit"
+                                            type="button"
+                                            onClick={(e) => handleAddOption(e as any)}
                                             className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-xs rounded-lg px-4 py-2 transition-colors border-none cursor-pointer shrink-0"
                                         >
                                             {t('addCategory')}
                                         </button>
-                                    </form>
+                                    </div>
                                 )}
                             </div>
                         </div>
@@ -310,7 +286,7 @@ const AddCardModal: React.FC<AddCardModalProps> = ({ ShowAddCardModal, CloseAddC
                         {t('cancel')}
                     </button>
                     <button 
-                        onClick={handleAddCard} 
+                        onClick={handleAddCardSubmit} 
                         className="bg-primary hover:bg-primary/95 text-primary-foreground font-bold rounded-lg px-5 py-2.5 text-sm transition-colors border-none cursor-pointer shadow-md"
                     >
                         {t('addCard')}

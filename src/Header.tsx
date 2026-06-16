@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { FaPlay, FaSun, FaMoon, FaGlobe, FaInfoCircle } from 'react-icons/fa';
-import { resetFunction, setPlaying } from './store/actions/UserActions';
-import { RootState } from './store/store';
+import { useStore } from './store/useStore';
 import { useApp } from './contexts/AppContext';
 
 const infoMenuTranslations = {
@@ -34,30 +32,24 @@ const infoMenuTranslations = {
 };
 
 const Header: React.FC = () => {
-    const dispatch = useDispatch();
-    const user = useSelector((state: RootState) => state.User);
+    const { playing, currentDeckId, setPlaying } = useStore();
     const { theme, language, toggleTheme, setLanguage, t } = useApp();
 
-    const reset = () => {
-        dispatch(resetFunction());
-    };
-
     const handleStartPlaying = () => {
-        dispatch(setPlaying(true));
+        setPlaying(true);
     };
 
-    const shouldShow = (user.CurrentCategory === 'No' || user.CurrentCategory === 'CardsFilled') && !user.Playing;
-
-    if (!shouldShow) return null;
+    // O header deve ser ocultado em modo de jogo ativo para foco máximo
+    if (playing) return null;
 
     const infoText = infoMenuTranslations[language] || infoMenuTranslations.pt;
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-card/80 backdrop-blur-md transition-all duration-300">
+        <header className="sticky top-0 z-50 w-full border-b border-border bg-card/85 backdrop-blur-md transition-all duration-300">
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Logo Section */}
                 <div className="flex items-center gap-2">
-                    <Link to="/" onClick={reset} className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity">
+                    <Link to="/" className="flex items-center gap-2 text-primary hover:opacity-90 transition-opacity">
                         <img 
                             className="h-6 w-6 object-contain" 
                             src="https://cdn.bkappi.com/ProjectsAssets/BkappiGeneral/bkappiIcon.ico" 
@@ -71,8 +63,8 @@ const Header: React.FC = () => {
 
                 {/* Right Actions */}
                 <div className="flex items-center gap-4">
-                    {/* Play Button */}
-                    {user.CurrentCategory === 'CardsFilled' && (
+                    {/* Play Button (para Trivia ou Decks carregados) */}
+                    {currentDeckId === 'trivia' && (
                         <button 
                             onClick={handleStartPlaying} 
                             className="inline-flex items-center gap-2 cursor-pointer bg-primary hover:bg-primary/95 text-primary-foreground font-semibold rounded-lg px-4 py-1.5 text-sm shadow transition-colors duration-200"

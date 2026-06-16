@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { editCategory } from '../../store/actions/CardsActions';
-import { setCurrentCategory as SetCurrentCategoryRedux } from '../../store/actions/UserActions';
-import { RootState } from '../../store/store';
-import { Category } from '../../store/types';
+import { useStore } from '../../store/useStore';
 import { useApp } from '../../contexts/AppContext';
 
 interface EditModalProps {
@@ -13,28 +9,19 @@ interface EditModalProps {
 }
 
 const EditModal: React.FC<EditModalProps> = ({ ShowEdit, CloseEditModal, CategoryId }) => {
-    const dispatch = useDispatch();
-    const categories = useSelector((state: RootState) => state.Cards);
-    const user = useSelector((state: RootState) => state.User);
+    const { decks, editDeck } = useStore();
     const { t } = useApp();
 
     const [categoryName, setCategoryName] = useState('');
-    const [currentCategory, setCurrentCategory] = useState<Category | null>(null);
 
     useEffect(() => {
         if (CategoryId) {
-            const found = categories.find((c: Category) => c.Id.trim() === CategoryId);
+            const found = decks.find((c) => c.Id === CategoryId);
             if (found) {
-                setCurrentCategory(found);
+                setCategoryName(found.Name);
             }
         }
-    }, [CategoryId, categories]);
-
-    useEffect(() => {
-        if (currentCategory) {
-            setCategoryName(currentCategory.Name);
-        }
-    }, [currentCategory]);
+    }, [CategoryId, decks]);
 
     if (!ShowEdit) return null;
 
@@ -42,17 +29,11 @@ const EditModal: React.FC<EditModalProps> = ({ ShowEdit, CloseEditModal, Categor
         CloseEditModal();
     };
 
-    const handleEditSubmit = (e: React.FormEvent) => {
+    const handleEditSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (!currentCategory || !categoryName.trim()) return;
+        if (!categoryName.trim()) return;
 
-        const edited = { ...currentCategory, Name: categoryName };
-        dispatch(editCategory(edited));
-        
-        if (user.CurrentCategory === currentCategory.Name) {
-            dispatch(SetCurrentCategoryRedux(edited));
-        }
-
+        await editDeck(CategoryId, categoryName.trim());
         handleClose();
     };
 
@@ -102,4 +83,5 @@ const EditModal: React.FC<EditModalProps> = ({ ShowEdit, CloseEditModal, Categor
         </div>
     );
 };
+
 export default EditModal;

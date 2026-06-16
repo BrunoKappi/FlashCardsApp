@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import FlipCard from '../PlayingFlipCard/FlipCard';
 import Chart from 'react-apexcharts';
-import { Card } from '../../store/types';
+import { Card } from '../../services/db';
 import { useApp } from '../../contexts/AppContext';
 
 interface PlayingBodyProps {

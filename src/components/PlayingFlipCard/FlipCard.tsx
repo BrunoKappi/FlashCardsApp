@@ -4,7 +4,7 @@ import { v4 as uuid_v4 } from 'uuid';
 import { MdClear as ClearIcon, MdCheck as CheckIcon, MdNavigateNext as NextIcon } from 'react-icons/md';
 import { RiCheckboxBlankCircleFill as BlankCircleIcon } from 'react-icons/ri';
 import { FaCheckCircle as CheckCircleIcon } from 'react-icons/fa';
-import { Card, Option } from '../../store/types';
+import { Card, Option } from '../../services/db';
 import { useApp } from '../../contexts/AppContext';
 
 interface FlipCardProps {
@@ -159,7 +159,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
                         transform: 'rotateY(180deg)'
                     }}
                 >
-                    {card.Answer.Option}
+                    {card.Answer?.Option}
                 </div>
             </div>
 
@@ -167,7 +167,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
                 <form className="w-full space-y-3" onSubmit={handleCheckQuestion}>
                     {optionsSet.map(op => {
                         const isSelected = op.IsAnswer;
-                        const isCorrect = op.Option.trim().toLowerCase() === card.Answer.Option.trim().toLowerCase();
+                        const isCorrect = op.Option.trim().toLowerCase() === card.Answer?.Option.trim().toLowerCase();
                         
                         let cardStyle = "bg-card border-border text-foreground hover:bg-secondary/80";
                         if (played) {
@@ -233,7 +233,7 @@ const FlipCard: React.FC<FlipCardProps> = ({
                             <p className="text-xs uppercase tracking-wider font-bold mb-1 opacity-70">Your Answer:</p>
                             <p className="font-semibold text-sm mb-3">{textAnswer}</p>
                             <p className="text-xs uppercase tracking-wider font-bold mb-1 opacity-70 text-muted-foreground">Correct Answer:</p>
-                            <p className="font-bold text-sm text-foreground">{card.Answer.Option}</p>
+                            <p className="font-bold text-sm text-foreground">{card.Answer?.Option}</p>
                         </div>
                     )}
                     

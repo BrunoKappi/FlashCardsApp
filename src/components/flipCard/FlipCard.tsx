@@ -3,14 +3,13 @@ import { MdModeEditOutline as EditIcon, MdDelete as DeleteIcon } from 'react-ico
 import { v4 as uuid_v4 } from 'uuid'; 
 import EditCardModal from '../editCardModal/EditCardModal';
 import DeleteCardModal from '../deleteCardModal/DeleteCardModal';
-import { Card } from '../../store/types';
+import { Card } from '../../services/db';
 
 interface FlipCardProps {
     Card: Card;
-    CategoryId: string;
 }
 
-const FlipCard: React.FC<FlipCardProps> = ({ Card, CategoryId }) => {
+const FlipCard: React.FC<FlipCardProps> = ({ Card }) => {
 
     const [flip, setFlip] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -20,8 +19,8 @@ const FlipCard: React.FC<FlipCardProps> = ({ Card, CategoryId }) => {
 
     return (
         <div className="flex flex-col group">
-            <EditCardModal Card={Card} ShowEditCardModal={showEditCardModal} CloseEditCardModal={() => setShowEditCardModal(false)} CategoryId={CategoryId} />
-            <DeleteCardModal Card={Card} ShowDelete={showDeleteCardModal} CloseDeleteModal={() => setShowDeleteCardModal(false)} CategoryId={CategoryId} />
+            <EditCardModal Card={Card} ShowEditCardModal={showEditCardModal} CloseEditCardModal={() => setShowEditCardModal(false)} />
+            <DeleteCardModal Card={Card} ShowDelete={showDeleteCardModal} CloseDeleteModal={() => setShowDeleteCardModal(false)} />
 
             <div 
                 className="relative rounded-2xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 cursor-pointer select-none min-h-[160px]"
@@ -58,9 +57,9 @@ const FlipCard: React.FC<FlipCardProps> = ({ Card, CategoryId }) => {
                         backfaceVisibility: 'hidden', 
                         WebkitBackfaceVisibility: 'hidden',
                         transform: 'rotateY(180deg)'
-                    }}
+                      }}
                 >
-                    {Card.Answer.Option}
+                    {Card.Answer?.Option}
                 </div>
             </div>
             
