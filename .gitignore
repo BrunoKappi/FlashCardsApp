@@ -125,3 +125,12 @@ Thumbs.db
 
 graphify-out/
 .agents/
+
+# Custom ignores
+configFiles
+.graphifyignore
+.geminiignore
+.claudeignore
+.antigravityignore
+agentsIgnore
+git

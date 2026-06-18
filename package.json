@@ -2,6 +2,9 @@
     "name": "flashcard-app",
     "version": "0.1.0",
     "private": true,
+    "engines": {
+        "node": ">=20.19.0"
+    },
     "type": "module",
     "dependencies": {
         "@tanstack/react-query": "^5.101.0",

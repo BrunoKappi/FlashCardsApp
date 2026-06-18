@@ -17,7 +17,7 @@ export default function Flashcard({ flashcard }: FlashcardProps) {
 
   return (
     <div
-      className="relative rounded-2xl shadow-md cursor-pointer transition-all duration-300 bg-gradient-to-br from-[#fef3c7] to-[#fde68a] select-none w-full min-h-[160px]"
+      className="relative rounded-2xl shadow-md cursor-pointer transition-all duration-300 select-none w-full min-h-[160px]"
       style={{ 
         transformStyle: 'preserve-3d',
         transform: `perspective(1000px) rotateY(${flip ? 180 : 0}deg) translateY(${isHovered ? -4 : 0}px)`,
@@ -28,7 +28,7 @@ export default function Flashcard({ flashcard }: FlashcardProps) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div 
-        className="w-full min-h-[160px] p-6 flex flex-col justify-between text-slate-800 relative" 
+        className="w-full min-h-[160px] p-6 flex flex-col justify-between text-slate-800 relative bg-gradient-to-br from-[#fef3c7] to-[#fde68a] rounded-2xl" 
         style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
       >
         <div className="text-sm font-bold text-center flex-grow flex items-center justify-center leading-relaxed">
