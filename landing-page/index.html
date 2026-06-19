@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A premium, gamified, and offline-first flashcard & trivia application to supercharge your learning.">
+    <title data-i18n="docTitle">Flashcards - Study Smarter & Master Any Subject</title>
+    <!-- Google Fonts: Kanit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="https://cdn.bkappi.com/ProjectsAssets/BkappiGeneral/bkappiIcon.ico">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#" class="logo-area">
+                <img src="https://cdn.bkappi.com/ProjectsAssets/BkappiGeneral/bkappiIcon.ico" alt="Bkappi Logo" class="logo-icon">
+                <span class="logo-text">Flashcards<span class="logo-dot">.io</span></span>
+            </a>
+            
+            <nav class="nav-menu" id="navMenu">
+                <a href="#features" data-i18n="navFeatures">Features</a>
+                <a href="#demo" data-i18n="navDemo">Interactive Demo</a>
+                <a href="#gallery" data-i18n="navGallery">Screenshots</a>
+            </nav>
+
+            <div class="header-actions">
+                <!-- Language Selector -->
+                <div class="lang-selector">
+                    <select id="langSelect" aria-label="Select Language">
+                        <option value="en" selected>English</option>
+                        <option value="pt">Português</option>
+                        <option value="es">Español</option>
+                    </select>
+                </div>
+                
+                <!-- Theme Toggle Button -->
+                <button id="themeToggleBtn" class="theme-toggle" aria-label="Toggle Theme">
+                    <!-- Sun Icon (shown in dark theme) -->
+                    <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <!-- Moon Icon (shown in light theme) -->
+                    <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+
+                <a href="../index.html" class="btn btn-primary btn-sm btn-header-cta" data-i18n="ctaLaunchBtn">Launch App</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-bg-glow"></div>
+        <div class="hero-container">
+            <div class="hero-text-content">
+                <span class="hero-badge" data-i18n="heroBadge">✨ 100% Free &amp; Offline-First</span>
+                <h1 data-i18n="heroTitle">Supercharge Your Learning with Flashcards &amp; Trivia</h1>
+                <p class="hero-subtitle" data-i18n="heroSubtitle">An elegant, gamified, and responsive study application designed to help you memorize anything faster through spaced repetition, custom study sessions, and offline trivia.</p>
+                <div class="hero-actions">
+                    <a href="../index.html" class="btn btn-primary btn-lg" data-i18n="heroCtaPrimary">Start Learning Now</a>
+                    <a href="#demo" class="btn btn-secondary btn-lg" data-i18n="heroCtaSecondary">Try Live Demo</a>
+                </div>
+            </div>
+            <div class="hero-mockup-container">
+                <div class="mockup-frame">
+                    <div class="mockup-browser-header">
+                        <span class="mockup-dot red"></span>
+                        <span class="mockup-dot yellow"></span>
+                        <span class="mockup-dot green"></span>
+                        <div class="mockup-address-bar">https://flashcards.io/dashboard</div>
+                    </div>
+                    <img id="heroMockupImg" src="https://cdn.bkappi.com/ProjectsAssets/Flashcards/HomePageDark.png" alt="Flashcards App Dashboard Preview" class="mockup-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <h2 data-i18n="featuresSectionTitle">Core Features Tailored for You</h2>
+            <p data-i18n="featuresSectionSubtitle">Everything you need to learn, test your knowledge, and track your accomplishments on any device.</p>
+        </div>
+
+        <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper purple">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="9" y1="9" x2="15" y2="9"></line>
+                        <line x1="9" y1="13" x2="15" y2="13"></line>
+                        <line x1="9" y1="17" x2="13" y2="17"></line>
+                    </svg>
+                </div>
+                <h3 data-i18n="feature1Title">Custom Study Decks</h3>
+                <p data-i18n="feature1Desc">Organize your flashcards into neat, searchable categories. Edit, add, or delete decks and cards dynamically.</p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper blue">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
+                        <polyline points="2 17 12 22 22 17"></polyline>
+                        <polyline points="2 12 12 17 22 12"></polyline>
+                    </svg>
+                </div>
+                <h3 data-i18n="feature2Title">Manual &amp; Automatic Modes</h3>
+                <p data-i18n="feature2Desc">Flip cards manually to learn at your own pace, or play them in automatic slideshow mode with customizable timing.</p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper orange">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                </div>
+                <h3 data-i18n="feature3Title">Offline Trivia Game</h3>
+                <p data-i18n="feature3Desc">Generate offline quiz questions dynamically across multiple categories. Earn bonus XP for correct answers.</p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper green">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                </div>
+                <h3 data-i18n="feature4Title">Analytics &amp; XP System</h3>
+                <p data-i18n="feature4Desc">Visualize your study performance with rich interactive charts, track sessions, and gain experience levels (XP).</p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper red">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                </div>
+                <h3 data-i18n="feature5Title">Backup Wizard</h3>
+                <p data-i18n="feature5Desc">Never lose your decks. Seamlessly export or import all flashcards, stats, and achievements as a light JSON file.</p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="feature-card">
+                <div class="feature-icon-wrapper yellow">
+                    <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5l7 7-7 7"></path>
+                    </svg>
+                </div>
+                <h3 data-i18n="feature6Title">100% Free &amp; Private</h3>
+                <p data-i18n="feature6Desc">Your learning stays yours. No tracking, no mandatory cloud sign-ins. All data is saved inside your browser database (Dexie/IndexedDB).</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demos Section -->
+    <section id="demo" class="demo-section">
+        <div class="section-header">
+            <h2 data-i18n="demoSectionTitle">Try the Interactive Demos</h2>
+            <p data-i18n="demoSectionSubtitle">Test drive the application's core logic directly from this landing page with the interactive simulators below.</p>
+        </div>
+
+        <div class="demo-container">
+            <!-- Demo 1: Flashcards -->
+            <div class="demo-block">
+                <h3 class="demo-block-title" data-i18n="demo1Title">Flashcard Deck Simulator</h3>
+                <p class="demo-block-desc" data-i18n="demo1Desc">Click on the card below to flip it and reveal the answer. Toggle buttons to change cards.</p>
+                
+                <div class="card-simulator-wrapper">
+                    <div class="flip-card-outer" id="demoFlipCard" role="button" tabindex="0" aria-label="Flashcard. Click to flip.">
+                        <div class="flip-card-inner">
+                            <!-- Front (Question) -->
+                            <div class="flip-card-front">
+                                <span class="card-category-tag" data-i18n="demoCardTag">Programming</span>
+                                <p class="card-content" id="cardQuestion">What is the Big O time complexity of accessing an element in an Array by its index?</p>
+                                <span class="card-hint" data-i18n="demoCardHint">Click to Flip</span>
+                            </div>
+                            <!-- Back (Answer) -->
+                            <div class="flip-card-back">
+                                <span class="card-category-tag correct" data-i18n="demoCardAnswerTag">Answer</span>
+                                <p class="card-content" id="cardAnswer">O(1) - Constant Time, because array indices allow direct access to memory addresses.</p>
+                                <span class="card-hint" data-i18n="demoCardHint">Click to Flip</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="demo-controls">
+                    <button class="btn btn-outline" id="prevCardBtn" data-i18n="demoPrevBtn">Previous Card</button>
+                    <button class="btn btn-outline" id="nextCardBtn" data-i18n="demoNextBtn">Next Card</button>
+                </div>
+            </div>
+
+            <!-- Demo 2: Trivia Game -->
+            <div class="demo-block">
+                <h3 class="demo-block-title" data-i18n="demo2Title">Mini Trivia Challenge</h3>
+                <p class="demo-block-desc" data-i18n="demo2Desc">Test your speed! Select the correct option below and check if you win. Accumulate XP points!</p>
+                
+                <div class="trivia-simulator-wrapper">
+                    <div class="trivia-simulator-header">
+                        <span class="trivia-category" id="triviaCategory">Computer Science</span>
+                        <div class="trivia-xp-badge"><span data-i18n="triviaXpText">XP Score:</span> <span id="triviaXpValue">0</span></div>
+                    </div>
+                    
+                    <div class="trivia-question-box">
+                        <p id="triviaQuestionText">Which protocol is primarily used to securely transfer files over a network connection?</p>
+                    </div>
+
+                    <div class="trivia-options-list" id="triviaOptionsContainer">
+                        <!-- Options generated by script -->
+                        <button class="trivia-option">HTTP</button>
+                        <button class="trivia-option">FTP</button>
+                        <button class="trivia-option">SFTP</button>
+                        <button class="trivia-option">SMTP</button>
+                    </div>
+
+                    <div class="trivia-feedback hidden" id="triviaFeedbackBox">
+                        <p id="triviaFeedbackText">Correct! +15 XP</p>
+                        <button class="btn btn-primary btn-sm" id="triviaNextBtn" data-i18n="triviaNextQuestionBtn">Next Question</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery & Screenshot Showcase -->
+    <section id="gallery" class="gallery-section">
+        <div class="section-header">
+            <h2 data-i18n="galleryTitle">Application Walkthrough</h2>
+            <p data-i18n="gallerySubtitle">A visual walkthrough of the interface under different modes and settings.</p>
+        </div>
+
+        <div class="gallery-carousel-wrapper">
+            <div class="gallery-grid">
+                <!-- Row 1: Dashboard and Study Mode -->
+                <div class="gallery-item">
+                    <div class="gallery-label" data-i18n="galleryLabelDashboard">1. Core Application Dashboard</div>
+                    <div class="gallery-image-wrapper">
+                        <img id="galleryDashboardImg" src="https://cdn.bkappi.com/ProjectsAssets/Flashcards/HomePageDark.png" alt="Home Dashboard" class="gallery-img">
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-label" data-i18n="galleryLabelTrivia">2. Gamified Trivia Mode</div>
+                    <div class="gallery-image-wrapper">
+                        <img id="galleryTriviaImg" src="https://cdn.bkappi.com/ProjectsAssets/Flashcards/TriviaGameDark.png" alt="Trivia game screen" class="gallery-img">
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-label" data-i18n="galleryLabelExport">3. Advanced Data Export/Import</div>
+                    <div class="gallery-image-wrapper">
+                        <img id="galleryExportImg" src="https://cdn.bkappi.com/ProjectsAssets/Flashcards/ExportDataDark.png" alt="Backup Export Panel" class="gallery-img">
+                    </div>
+                </div>
+
+                <div class="gallery-item">
+                    <div class="gallery-label" data-i18n="galleryLabelPrint">4. Printing and Offline Sharing</div>
+                    <div class="gallery-image-wrapper">
+                        <img src="https://cdn.bkappi.com/ProjectsAssets/Flashcards/FlashCardsPrint1.png" alt="Flashcards Printing Printout" class="gallery-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="cta-banner">
+        <div class="cta-banner-bg"></div>
+        <div class="cta-banner-container">
+            <h2 data-i18n="ctaBannerTitle">Ready to supercharge your studies?</h2>
+            <p data-i18n="ctaBannerSubtitle">Create your custom categories, build cards, challenge yourself with trivia, and export your backups anytime. Totally free, no credit card required.</p>
+            <div class="cta-banner-actions">
+                <a href="../index.html" class="btn btn-primary btn-lg" data-i18n="ctaBannerPrimaryBtn">Launch Web Application</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="logo-area">
+                    <img src="https://cdn.bkappi.com/ProjectsAssets/BkappiGeneral/bkappiIcon.ico" alt="Bkappi Icon" class="logo-icon">
+                    <span class="logo-text">Flashcards<span class="logo-dot">.io</span></span>
+                </div>
+                <p class="footer-brand-desc" data-i18n="footerDesc">Open-source premium learning tool designed to improve spaced repetition memory retention. Safe, fast, offline-first, and fully customizable.</p>
+            </div>
+            
+            <div class="footer-links">
+                <div class="footer-link-group">
+                    <h4 data-i18n="footerNavHeader">Navigation</h4>
+                    <a href="#" data-i18n="footerNavHome">Home</a>
+                    <a href="#features" data-i18n="footerNavFeatures">Features</a>
+                    <a href="#demo" data-i18n="footerNavDemo">Demos</a>
+                    <a href="#gallery" data-i18n="footerNavGallery">Gallery</a>
+                </div>
+                <div class="footer-link-group">
+                    <h4 data-i18n="footerLegalHeader">Legal</h4>
+                    <a href="../index.html#/TermsOfUse" data-i18n="footerLegalTerms">Terms of Use</a>
+                    <a href="../index.html#/PrivacyPolicy" data-i18n="footerLegalPrivacy">Privacy Policy</a>
+                    <a href="../index.html#/Disclaimer" data-i18n="footerLegalDisclaimer">Disclaimer</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Flashcards.io. All rights reserved. Developed by <a href="https://bkappi.com" target="_blank" rel="noopener">Bkappi</a>.</p>
+        </div>
+    </footer>
+
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+</html>
