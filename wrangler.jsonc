@@ -1,0 +1,7 @@
+{
+  "name": "flashcards-app-prod",
+  "compatibility_date": "2026-06-19",
+  "assets": {
+    "directory": "./dist"
+  }
+}
