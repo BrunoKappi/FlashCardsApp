@@ -134,3 +134,10 @@ configFiles
 .antigravityignore
 agentsIgnore
 git
+
+# Automatically added agent and env ignores
+.env.development
+.env.production
+
+# Ignore local knowledge database
+kb_database.md
